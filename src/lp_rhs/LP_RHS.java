@@ -19,13 +19,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.io.*;
 public class LP_RHS {
 
     
     public static void main(String[] args) {
         try {
-            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader("./entrada.txt")));
+            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader("./code_AnalizaExpresiones.txt")));
             parser.EjecutarLP();
         } catch (ParseException e) {
             System.err.println(e.getMessage());

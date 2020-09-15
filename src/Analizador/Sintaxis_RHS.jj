@@ -32,7 +32,7 @@ TOKEN:
 	| <PRIVADO: "private"> 
 	| <ESTATICO: "static"> 
 	| <VOID: "void"> 
-	| <MAIN: "public static void Main()"> 
+	| <MAIN: "StartMain()"> 
 	| <PROGRAMA: "BEGIN" >  
 }
 

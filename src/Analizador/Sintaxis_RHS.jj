@@ -84,7 +84,7 @@ TOKEN:
 	| <DEC: "ValDec"> //45
 	| <CHR: "ValChr"> //46
 	| <STR: "ValStr"> //47
-	| <NUMBER : (["0"-"9"])+>  //48
+	| <NUMERO : (["0"-"9"])+>  //48
 	| <IDENTIDICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //49
 	| <DECIMAL : (["0"-"9"])+["."](["0"-"9"])+ > //50
 	| <CADENA : <DOUBLECOMMA>["a"-"z","A"-"Z","0"-"9"," "](["a"-"z","A"-"Z","0"-"9"," ",":",";","."])*<DOUBLECOMMA>> //51
@@ -99,38 +99,38 @@ SKIP :
 
 /** Comeizo a definir la sintaxis de mi lenguaje de programacion*/
 
-void EjecutarLP()
+void EjecutarLP():
 {}
 {
 	<PROGRAMA><IDENTIDICADOR><LLAVEI>Bloque()<LLAVED><EOF>
 	
 }
 
-void Bloque()
+void Bloque():
 {}
 {
 	LOOKAHEAD(2)VariablesGlobales() | CuerpoPrincipal()
 }
 
-void VariablesGlobales()
+void VariablesGlobales():
 {}
 {
 	(<PUBLICO>|<PRIVADO>)(<INT>|<DEC>|<CHR>|<STR>|<CHR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> Bloque()
 }
 
-void CuerpoPrincipal()
+void CuerpoPrincipal():
 {}
 {
 	<MAIN><LLAVEI>Sentencias()<LLAVED>
 }
 
-void VariablesLocales()
+void VariablesLocales():
 {}
 {
 	(<INT>|<DEC>|<CHR>|<STR>|<CHR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> VS()
 }
 
-void Sentencias()
+void Sentencias():
 {}
 {
 	(	
@@ -140,52 +140,58 @@ void Sentencias()
 	| SentenciaWhile()
 	| SentenciaDo()	
 	| SentenciaSwitch()
-	| EvaluarOperacionesArit()
+	| Evaluar()
 	)*
 }
 
-void VS()
+void VS():
 {}
 {
 	LOOKAHEAD(3)VariablesLocales() | Sentencias()
 }
 
-void SentenciaIf()
+void SentenciaIf():
 {}
 {
 	<IF><PARENI><PAREND><LLAVEI><LLAVED>
 }
 
-void SentenciaFor()
+void SentenciaFor():
 {}
 {
 	<FOR><PARENI><PAREND><LLAVEI><LLAVED>
 }
 
-void SentenciaWhile()
+void SentenciaWhile():
 {}
 {
 	<WHILE><PARENI><PAREND><LLAVEI><LLAVED>
 }
 
-void SentenciaDo()
+void SentenciaDo():
 {}
 {
 	<DO><PARENI><PAREND><LLAVEI><LLAVED><WHILE><PARENI><PAREND><PUNTCOM>
 }
 
-void SentenciaSwitch()
+void SentenciaSwitch():
 {}
 {
-	<SWITCH><PARENI><PAREND>LLAVEI><LLAVED>
+	<SWITCH><PARENI><PAREND><LLAVEI><LLAVED>
 }
 
 /****Seccion para evaluar las expreciones aritmeticas*******/
 
-void EvaluarOperacionesArit()
-{double e}
+void Evaluar():
+{}
 {
-	<EVALUAR><BRACKETI>e=Expresion()<BRACKETD<PUNTCOM> {System.out.println("El valor de la expresion es: "+e);}
+	(EvaluarOperacionesArit())+
+}
+
+void EvaluarOperacionesArit():
+{double e;}
+{
+	<EVALUAR> <BRACKETI> e=Expresion() <BRACKETD> <PUNTCOM> {System.out.println("El valor de la expresion es: "+e);}
 }
 
 /** Expresion -> ExpresionMultiplicativa ('+' ExpresionMultiplicativa)*
@@ -211,7 +217,7 @@ double ExpresionMultiplicativa() :
 {
     e=ExpresionUnaria()
     (
-        <POR> e1=ExpresionUnaria() {e *= e1;}
+        <MULTI> e1=ExpresionUnaria() {e *= e1;}
         |
         <DIV> e1=ExpresionUnaria() {e /= e1;}
     )*

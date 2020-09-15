@@ -10,13 +10,31 @@ package lp_rhs;
  *
  * @author AkiibaRichard
  */
+
+import Analizador.Sintaxis_RHS;
+import Analizador.ParseException;
+import Analizador.TokenMgrError;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.io.*;
 public class LP_RHS {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader("./entrada.txt")));
+            parser.EjecutarLP();
+        } catch (ParseException e) {
+            System.err.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(LP_RHS.class.getName()).log(Level.SEVERE, "Error al intentar leer el archivo.", e);
+        } catch(TokenMgrError e){
+            System.err.println(e.getMessage());
+        }
+        
     }
     
 }

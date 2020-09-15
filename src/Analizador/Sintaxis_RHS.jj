@@ -115,7 +115,7 @@ void Bloque():
 void VariablesGlobales():
 {}
 {
-	(<PUBLICO>|<PRIVADO>)(<INT>|<DEC>|<CHR>|<STR>|<CHR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> Bloque()
+	(<PUBLICO>|<PRIVADO>)(<INT>|<DEC>|<CHR>|<STR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> Bloque()
 }
 
 void CuerpoPrincipal():
@@ -127,7 +127,7 @@ void CuerpoPrincipal():
 void VariablesLocales():
 {}
 {
-	(<INT>|<DEC>|<CHR>|<STR>|<CHR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> VS()
+	(<INT>|<DEC>|<CHR>|<STR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> VS()
 }
 
 void Sentencias():

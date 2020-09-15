@@ -54,8 +54,6 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     case STR:
       jj_consume_token(STR);
       break;
-      jj_consume_token(CHR);
-      break;
     default:
       jj_la1[2] = jj_gen;
       jj_consume_token(-1);
@@ -99,8 +97,6 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
       break;
     case STR:
       jj_consume_token(STR);
-      break;
-      jj_consume_token(CHR);
       break;
     default:
       jj_la1[4] = jj_gen;
@@ -418,11 +414,6 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     finally { jj_save(1, xla); }
   }
 
-  private boolean jj_3R_10() {
-    if (jj_scan_token(COMMA)) return true;
-    return false;
-  }
-
   private boolean jj_3R_9() {
     Token xsp;
     xsp = jj_scanpos;
@@ -432,10 +423,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     jj_scanpos = xsp;
     if (jj_scan_token(47)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(48)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(47)) return true;
-    }
+    if (jj_scan_token(48)) return true;
     }
     }
     }
@@ -462,10 +450,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     jj_scanpos = xsp;
     if (jj_scan_token(47)) {
     jj_scanpos = xsp;
-    if (jj_scan_token(48)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(47)) return true;
-    }
+    if (jj_scan_token(48)) return true;
     }
     }
     }
@@ -474,6 +459,11 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
 
   private boolean jj_3_2() {
     if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_10() {
+    if (jj_scan_token(COMMA)) return true;
     return false;
   }
 

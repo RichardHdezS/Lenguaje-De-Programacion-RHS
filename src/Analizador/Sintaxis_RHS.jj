@@ -1,0 +1,192 @@
+options {
+  IGNORE_CASE = true; //para no hacer distinción entre mayúsculas y minúsculas.
+  STATIC = false; //para que los métodos que genere la compilación no sean estáticos.
+}
+
+/**************************** Mi primer lenguaje de programacion  ***********************+**/
+PARSER_BEGIN(Sintaxis_RHS)
+
+package Analizador; 
+public class Sintaxis_RHS {
+}
+
+PARSER_END(Sintaxis_RHS)
+
+/** Comenzamos a definir los tokens de mi lenguaje**/
+
+TOKEN:
+{
+	  <ASIGNACION : "=">  
+	| <MAS : "+" >  
+	| <MENOS:"-"> 
+	| <MULTI:"*"> 
+	| <DIV:"/"> 
+	| <INCR: "++" > 
+	| <DECR: "--" >
+}
+
+TOKEN:
+{
+	  <PUBLICO: "public"> 
+	| <PRIVADO: "private"> 
+	| <ESTATICO: "static"> 
+	| <VOID: "void"> 
+	| <MAIN: "public static void Main()"> 
+	| <PROGRAMA: "BEGIN" >  
+}
+
+TOKEN:
+{
+	  <IF: "_if" > 
+	| <ELSE:"_else" > 
+	| <ELSEIF:"_ifElse" > 
+	| <FOR:"_for" > 
+	| <SWITCH:"_SW" > 
+	| <CASE:"case_SW" > 
+	| <BREAK:"Case_break" > 
+	| <DEFAUL:"Defl" > 
+	| <DO:"_do" > 
+	| <WHILE:"_while" > 
+	| <WRITE:"_escribe_" > 
+	| <READ:"_leer_" > 
+}
+
+TOKEN:
+{
+      <PARENI: "(" > 
+	| <PAREND: ")" > 
+	| <LLAVEI: "{" > 
+	| <LLAVED: "}" > 
+	| <BRACKETI: "[" > 
+	| <BRACKETD: "]" > 
+	| <PUNTCOM: ";" > 
+	| <COMMA: "," > 
+	| <PUNTO: "." > 
+	| <DOUBLECOMMA: "\""> 
+}
+
+TOKEN:
+{
+	  <IGUAL: "==" > 
+	| <MENQ: "<=" > 
+	| <MEN: "<" > 
+	| <MAYQ: ">=" > 
+	| <MAY: ">" > 
+	| <DIF: "!=" > 
+	| <OR: "||" > 
+	| <AND: "&&"> 
+}
+
+TOKEN:
+{
+	  <INT:"ValINT"> //44
+	| <DEC: "ValDec"> //45
+	| <CHR: "ValChr"> //46
+	| <STR: "ValStr"> //47
+	| <NUMBER : (["0"-"9"])+>  //48
+	| <IDENTIDICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //49
+	| <DECIMAL : (["0"-"9"])+["."](["0"-"9"])+ > //50
+	| <CADENA : <DOUBLECOMMA>["a"-"z","A"-"Z","0"-"9"," "](["a"-"z","A"-"Z","0"-"9"," ",":",";","."])*<DOUBLECOMMA>> //51
+	| <CARAC : "'"["a"-"z","A"-"Z","0"-"9"]"'" >//52 
+	| <DOUBLEPOINT : ":">
+}
+
+SKIP : 
+{ 
+	" "|"\n" | "\r" | "\r\n" | "\t"
+}
+
+/** Comeizo a definir la sintaxis de mi lenguaje de programacion*/
+
+void EjecutarLP()
+{}
+{
+	<PROGRAMA><IDENTIDICADOR><LLAVEI>Bloque()<LLAVED><EOF>
+	
+}
+
+void Bloque()
+{}
+{
+	LOOKAHEAD(2)VariablesGlobales() | CuerpoPrincipal()
+}
+
+void VariablesGlobales()
+{}
+{
+	(<PUBLICO>|<PRIVADO>)(<INT>|<DEC>|<CHR>|<STR>|<CHR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> Bloque()
+}
+
+void CuerpoPrincipal()
+{}
+{
+	<MAIN><LLAVEI>Sentencias()<LLAVED>
+}
+
+void VariablesLocales()
+{}
+{
+	(<INT>|<DEC>|<CHR>|<STR>|<CHR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> VS()
+}
+
+void Sentencias()
+{}
+{
+	(	
+	  VariablesLocales()	
+    | SentenciaIf() 	
+	| SentenciaFor()
+	| SentenciaWhile()
+	| SentenciaDo()	
+	| SentenciaSwitch()
+	| EvaluarOperacionesArit()
+	)*
+}
+
+void VS()
+{}
+{
+	LOOKAHEAD(3)VariablesLocales() | Sentencias()
+}
+
+void SentenciaIf()
+{}
+{
+	<IF><PARENI><PAREND><LLAVEI><LLAVED>
+}
+
+void SentenciaFor()
+{}
+{
+	<FOR><PARENI><PAREND><LLAVEI><LLAVED>
+}
+
+void SentenciaWhile()
+{}
+{
+	<WHILE><PARENI><PAREND><LLAVEI><LLAVED>
+}
+
+void SentenciaDo()
+{}
+{
+	<DO><PARENI><PAREND><LLAVEI><LLAVED><WHILE><PARENI><PAREND><PUNTCOM>
+}
+
+void SentenciaSwitch()
+{}
+{
+	<SWITCH><PARENI><PAREND>LLAVEI><LLAVED>
+}
+
+void EvaluarOperacionesArit()
+{}
+{
+	
+}
+
+
+
+
+
+

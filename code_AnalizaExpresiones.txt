@@ -1,0 +1,8 @@
+BEGIN Evaluacion
+{
+	StartMain(){
+		EvaluarExprecion[1+1];
+		EvaluarExprecion[1+1*2];
+		EvaluarExprecion[1+2*5+1/2-16];
+	}
+}

@@ -1,0 +1,33 @@
+BEGIN Sintaxis{
+
+
+	public Int var1, var2;
+	Private str cadena1, cadena2;
+	public Chr letra1;
+
+	StartMain(){
+	Dec nvaVariable;
+
+	_for(){}
+
+	_if(){
+		}
+	
+	_if(){
+		}
+	_else(){
+	}	
+	
+	_while(){}
+
+	_do{
+	}
+	_while();
+
+	EvaluarExprecion[4*4-5+5/2];
+	EvaluarExprecion[-(1+1*6/3-5+1*-2)];
+	
+	_SW()
+		{}
+}
+}

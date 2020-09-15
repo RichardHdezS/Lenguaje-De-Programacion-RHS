@@ -24,7 +24,7 @@ public class LP_RHS {
     
     public static void main(String[] args) {
         try {
-            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader("./code_AnalizaExpresiones.txt")));
+            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader("./code_PruebaSintaxis.txt")));
             parser.EjecutarLP();
         } catch (ParseException e) {
             System.err.println(e.getMessage());

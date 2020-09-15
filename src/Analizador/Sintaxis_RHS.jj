@@ -80,10 +80,10 @@ TOKEN:
 
 TOKEN:
 {
-	  <INT:"ValINT"> //44
-	| <DEC: "ValDec"> //45
-	| <CHR: "ValChr"> //46
-	| <STR: "ValStr"> //47
+	  <INT:"Int"> //44
+	| <DEC: "Dec"> //45
+	| <CHR: "Chr"> //46
+	| <STR: "Str"> //47
 	| <NUMERO : (["0"-"9"])+>  //48
 	| <IDENTIDICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //49
 	| <DECIMAL : (["0"-"9"])+["."](["0"-"9"])+ > //50
@@ -153,7 +153,13 @@ void VS():
 void SentenciaIf():
 {}
 {
-	<IF><PARENI><PAREND><LLAVEI><LLAVED>
+	<IF><PARENI><PAREND><LLAVEI><LLAVED> (Sino())*
+}
+
+void Sino():
+{}
+{
+	<ELSE><PARENI><PAREND><LLAVEI><LLAVED>
 }
 
 void SentenciaFor():
@@ -171,7 +177,7 @@ void SentenciaWhile():
 void SentenciaDo():
 {}
 {
-	<DO><PARENI><PAREND><LLAVEI><LLAVED><WHILE><PARENI><PAREND><PUNTCOM>
+	<DO><LLAVEI><LLAVED><WHILE><PARENI><PAREND><PUNTCOM>
 }
 
 void SentenciaSwitch():

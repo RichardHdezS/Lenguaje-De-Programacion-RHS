@@ -23,6 +23,7 @@ TOKEN:
 	| <DIV:"/"> 
 	| <INCR: "++" > 
 	| <DECR: "--" >
+	| <EVALUAR: "EvaluarExprecion">
 }
 
 TOKEN:
@@ -179,10 +180,67 @@ void SentenciaSwitch()
 	<SWITCH><PARENI><PAREND>LLAVEI><LLAVED>
 }
 
+/****Seccion para evaluar las expreciones aritmeticas*******/
+
 void EvaluarOperacionesArit()
-{}
+{double e}
 {
-	
+	<EVALUAR><BRACKETI>e=Expresion()<BRACKETD<PUNTCOM> {System.out.println("El valor de la expresion es: "+e);}
+}
+
+/** Expresion -> ExpresionMultiplicativa ('+' ExpresionMultiplicativa)*
+              |  ExpresionMultiplicativa ('-' ExpresionMultiplicativa)*
+*/
+double Expresion() :
+{double e, e1;}
+{
+    e=ExpresionMultiplicativa()
+    (
+        <MAS> e1=ExpresionMultiplicativa() {e += e1;}
+        |
+        <MENOS> e1=ExpresionMultiplicativa() {e -= e1;}
+    )*
+    {return e;}
+}
+
+/** ExpresionMultiplicativa -> ExpresionUnaria ('*' ExpresionUnaria)*
+                            |  ExpresionUnaria ('/' ExpresionUnaria)*
+*/
+double ExpresionMultiplicativa() :
+{double e, e1;}
+{
+    e=ExpresionUnaria()
+    (
+        <POR> e1=ExpresionUnaria() {e *= e1;}
+        |
+        <DIV> e1=ExpresionUnaria() {e /= e1;}
+    )*
+    {return e;}
+}
+
+/** ExpresionUnaria -> '-' ExpresionUnaria
+                    |  Primitivo
+ */
+double ExpresionUnaria() :
+{double e;}
+{
+    <MENOS> e=ExpresionUnaria() {return -e;}
+    |
+    e=Primitivo() {return e;}
+}
+
+/** Primitivo -> Numero
+              |  Decimal
+              |  '(' Expresion ')' 
+*/
+double Primitivo() :
+{double e;}
+{
+    <NUMERO> {return Double.parseDouble(token.image);}
+    |
+    <DECIMAL> {return Double.parseDouble(token.image);}
+    |
+    <PARENI> e=Expresion() <PAREND> {return e;}
 }
 
 

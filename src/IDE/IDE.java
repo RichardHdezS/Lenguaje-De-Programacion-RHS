@@ -25,8 +25,6 @@ import javax.swing.text.AttributeSet;
  */
 
 public class IDE extends javax.swing.JFrame {
-    LP_RHS ejecutar = new LP_RHS();//este objeto nos permite llamar el ejecutador del codigo(analizador lexico sintactico)
-    
     public IDE() {
         initComponents();
        
@@ -55,6 +53,7 @@ public class IDE extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -127,9 +126,9 @@ public class IDE extends javax.swing.JFrame {
 
         jMenu1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jMenu1.setText("Inicio");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("HP Simplified Jpan Light", 3, 18)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        jMenuItem1.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem1.setText("Abrir");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,24 +137,38 @@ public class IDE extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        jMenuItem6.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
+        jMenuItem6.setText("Guardar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
+        jMenuItem5.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem5.setText("Salir");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Ayuda");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("HP Simplified Jpan Light", 3, 18)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        jMenuItem2.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem2.setText("Manual de Usuario");
         jMenu2.add(jMenuItem2);
 
-        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        jMenuItem3.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem3.setText("Manual Tecnico");
         jMenu2.add(jMenuItem3);
 
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 3, 15)); // NOI18N
+        jMenuItem4.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem4.setText("Temas de Ayuda");
         jMenu2.add(jMenuItem4);
 
@@ -184,9 +197,9 @@ public class IDE extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(272, 272, 272)
                 .addComponent(jLabel1)
-                .addGap(287, 287, 287)
-                .addComponent(btn_ejecutar)
-                .addGap(271, 271, 271)
+                .addGap(270, 270, 270)
+                .addComponent(btn_ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(261, 261, 261)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -196,10 +209,10 @@ public class IDE extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_ejecutar)
+                    .addComponent(btn_ejecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -227,16 +240,24 @@ public class IDE extends javax.swing.JFrame {
 
     private void btn_ejecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ejecutarActionPerformed
         if(txtAreaContenido.getText().toString().equals("")){
-            txtSalida.setText("No hay entra para analizar");
+            txtSalida.setText(txtSalida.getText() + "\n" + "No hay entra para analizar");
         }
         else{
-         //ejecutar.ejecutaLP(pahtFile);
+         new LP_RHS().ejecutaLP(pahtFile, txtSalida);//ejecutamos en codigo con el nalaizador lexico javacc
          new AuxLexico().Analizar(Resultado, tokenTable);//llamamos el analizador lexico
                                            //mandamos la cadena a analizar y la tabla de tokens
         }
     }//GEN-LAST:event_btn_ejecutarActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        System.exit(0);//cerramos la ejecucion
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     
-    
+    //metodo que permite abrir el archivo y a analizar y prepara la entrada para el analizador lexico
     public String ArbrirArchivo() throws IOException
     {
         Scanner entrada = null, entrada2 = null;
@@ -254,7 +275,7 @@ public class IDE extends javax.swing.JFrame {
                File f = new File(ruta);       
                entrada = new Scanner(f);
                entrada2=new Scanner(f);
-               while (entrada.hasNext()) {
+               while (entrada.hasNext()) {//preparamos la entradad ára el analizador lexico
                    Cadena += entrada.nextLine() + " ";
                }
                while(entrada2.hasNext()){//este segundo siclo es epara llenar el contenido que se presentara en la primera venta
@@ -262,13 +283,15 @@ public class IDE extends javax.swing.JFrame {
                }
            } 
            catch (FileNotFoundException e) {
-               System.out.println(e.getMessage());
+               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage());
+               //System.out.println(e.getMessage());
            } 
            catch (NullPointerException e) {
-               System.out.println("No se ha seleccionado ningún fichero");
+               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage() + "No se ha seleccionado ningún fichero");
            } 
            catch (Exception e) {
-               System.out.println(e.getMessage());
+               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage());
+               //System.out.println(e.getMessage());
            } 
            finally {
                if (entrada != null && entrada2!=null) {
@@ -328,6 +351,7 @@ public class IDE extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -13,14 +13,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Inicio"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="3"/>
+              <Font name="HP Simplified Jpan Light" size="18" style="3"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="15" style="3"/>
+                  <Font name="HP Simplified Light" size="15" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
@@ -28,13 +28,27 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="HP Simplified Light" size="15" style="3"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="15" style="3"/>
+                  <Font name="HP Simplified Light" size="15" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -42,14 +56,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ayuda"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="3"/>
+              <Font name="HP Simplified Jpan Light" size="18" style="3"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="15" style="3"/>
+                  <Font name="HP Simplified Light" size="15" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manual de Usuario"/>
               </Properties>
@@ -57,7 +71,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="15" style="3"/>
+                  <Font name="HP Simplified Light" size="15" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manual Tecnico"/>
               </Properties>
@@ -65,7 +79,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="15" style="3"/>
+                  <Font name="HP Simplified Light" size="15" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Temas de Ayuda"/>
               </Properties>
@@ -119,9 +133,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="272" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="287" max="-2" attributes="0"/>
-              <Component id="btn_ejecutar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="270" max="-2" attributes="0"/>
+              <Component id="btn_ejecutar" min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -133,11 +147,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="503" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btn_ejecutar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_ejecutar" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>

@@ -22,9 +22,9 @@ import java.util.logging.Logger;
 public class LP_RHS {
 
     
-    public static void main(String[] args) {
+    public void ejecutaLP(String rootFile){
         try {
-            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader("./code_PruebaSintaxis.txt")));
+            Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader(rootFile)));
             parser.EjecutarLP();
         } catch (ParseException e) {
             System.err.println(e.getMessage());
@@ -33,7 +33,6 @@ public class LP_RHS {
         } catch(TokenMgrError e){
             System.err.println(e.getMessage());
         }
-        
     }
     
 }

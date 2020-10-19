@@ -7,6 +7,8 @@
 package IDE;
 
 import lp_rhs.LP_RHS;
+import lp_rhs.AuxLexico;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,15 +30,19 @@ public class IDE extends javax.swing.JFrame {
         initComponents();
     }
 
-    LP_RHS ejecutar = new LP_RHS();
-    String pahtFile="";
+    LP_RHS ejecutar = new LP_RHS();//este objeto nos permite llamar el ejecutador del codigo(analizador lexico sintactico)
+    AuxLexico analizadorLexico = new AuxLexico();//este objeto nos permite ejecutar el auxiliar del analizador lexico
+    
+    
+    String pahtFile="";//est avriable guarda la ruta del archivo a analizar
+    String Resultado="";//esta variable guardara la entrada para el auxiliar del analizador lexico
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btn_ejecutar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtSalida = new javax.swing.JTextPane();
@@ -69,10 +75,10 @@ public class IDE extends javax.swing.JFrame {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Ejecutar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_ejecutar.setText("Ejecutar");
+        btn_ejecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_ejecutarActionPerformed(evt);
             }
         });
 
@@ -180,7 +186,7 @@ public class IDE extends javax.swing.JFrame {
                 .addGap(272, 272, 272)
                 .addComponent(jLabel1)
                 .addGap(287, 287, 287)
-                .addComponent(jButton1)
+                .addComponent(btn_ejecutar)
                 .addGap(271, 271, 271)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -194,7 +200,7 @@ public class IDE extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btn_ejecutar)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -212,16 +218,23 @@ public class IDE extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try {
-            String Resultado=ArbrirArchivo();
+             Resultado=ArbrirArchivo();//la variable resultado recive un string preparado para el analisis lexico
             if(Resultado.equals("")){}
         } catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ejecutar.ejecutaLP(pahtFile);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_ejecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ejecutarActionPerformed
+        if(txtAreaContenido.getText().toString().equals("")){
+            txtSalida.setText("No hay entra para analizar");
+        }
+        else{
+         ejecutar.ejecutaLP(pahtFile);
+         analizadorLexico.Analizar(Resultado);
+        }
+        
+    }//GEN-LAST:event_btn_ejecutarActionPerformed
     
     
     public String ArbrirArchivo() throws IOException
@@ -304,7 +317,7 @@ public class IDE extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_ejecutar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

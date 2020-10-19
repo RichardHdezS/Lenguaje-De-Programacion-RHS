@@ -25,18 +25,17 @@ import javax.swing.text.AttributeSet;
  */
 
 public class IDE extends javax.swing.JFrame {
+    LP_RHS ejecutar = new LP_RHS();//este objeto nos permite llamar el ejecutador del codigo(analizador lexico sintactico)
     
     public IDE() {
         initComponents();
+       
     }
 
-    LP_RHS ejecutar = new LP_RHS();//este objeto nos permite llamar el ejecutador del codigo(analizador lexico sintactico)
-    AuxLexico analizadorLexico = new AuxLexico();//este objeto nos permite ejecutar el auxiliar del analizador lexico
-    
-    
     String pahtFile="";//est avriable guarda la ruta del archivo a analizar
     String Resultado="";//esta variable guardara la entrada para el auxiliar del analizador lexico
     
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,7 +47,7 @@ public class IDE extends javax.swing.JFrame {
         txtSalida = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tokenTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -106,7 +105,7 @@ public class IDE extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tokenTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -114,7 +113,7 @@ public class IDE extends javax.swing.JFrame {
                 "Lexema", "Token"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(tokenTable);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setText("Salida");
@@ -220,7 +219,8 @@ public class IDE extends javax.swing.JFrame {
         try {
              Resultado=ArbrirArchivo();//la variable resultado recive un string preparado para el analisis lexico
             if(Resultado.equals("")){}
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -230,10 +230,10 @@ public class IDE extends javax.swing.JFrame {
             txtSalida.setText("No hay entra para analizar");
         }
         else{
-         ejecutar.ejecutaLP(pahtFile);
-         analizadorLexico.Analizar(Resultado);
+         //ejecutar.ejecutaLP(pahtFile);
+         new AuxLexico().Analizar(Resultado, tokenTable);//llamamos el analizador lexico
+                                           //mandamos la cadena a analizar y la tabla de tokens
         }
-        
     }//GEN-LAST:event_btn_ejecutarActionPerformed
     
     
@@ -279,7 +279,7 @@ public class IDE extends javax.swing.JFrame {
            txtAreaContenido.setText(Contenido);
            return Cadena;//retornamos la cadena la cadena con lostoken si se llego a lejir un archivo .txt
            }
-          return "";//si no se llego a seleccionar un archivo .txt retornamos una cadena vacio
+          return Cadena;//si no se llego a seleccionar un archivo .txt retornamos una cadena vacio
 	}
   
     
@@ -334,9 +334,9 @@ public class IDE extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable tokenTable;
     private javax.swing.JTextArea txtAreaContenido;
-    private javax.swing.JTextPane txtSalida;
+    public javax.swing.JTextPane txtSalida;
     // End of variables declaration//GEN-END:variables
 
     private Object getDocument() {

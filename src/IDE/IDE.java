@@ -11,11 +11,14 @@ import lp_rhs.AuxLexico;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
 
@@ -52,9 +55,10 @@ public class IDE extends javax.swing.JFrame {
         txtAreaContenido = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        btnAbrirArchivo = new javax.swing.JMenuItem();
+        btnGuardar = new javax.swing.JMenuItem();
+        btn_GuardarComo = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -80,6 +84,8 @@ public class IDE extends javax.swing.JFrame {
             }
         });
 
+        txtSalida.setFont(new java.awt.Font("HP Simplified Light", 1, 13)); // NOI18N
+        txtSalida.setForeground(new java.awt.Color(255, 0, 0));
         jScrollPane4.setViewportView(txtSalida);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -128,32 +134,41 @@ public class IDE extends javax.swing.JFrame {
         jMenu1.setText("Inicio");
         jMenu1.setFont(new java.awt.Font("HP Simplified Jpan Light", 3, 18)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
-        jMenuItem1.setText("Abrir");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnAbrirArchivo.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
+        btnAbrirArchivo.setText("Abrir");
+        btnAbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnAbrirArchivoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(btnAbrirArchivo);
 
-        jMenuItem6.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
-        jMenuItem6.setText("Guardar");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        jMenu1.add(btnGuardar);
 
-        jMenuItem5.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
-        jMenuItem5.setText("Salir");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        btn_GuardarComo.setFont(new java.awt.Font("HP Simplified Light", 1, 14)); // NOI18N
+        btn_GuardarComo.setText("Guardar como");
+        btn_GuardarComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                btn_GuardarComoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(btn_GuardarComo);
+
+        btnSalir.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnSalir);
 
         jMenuBar1.add(jMenu1);
 
@@ -228,7 +243,7 @@ public class IDE extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void btnAbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirArchivoActionPerformed
         try {
              Resultado=ArbrirArchivo();//la variable resultado recive un string preparado para el analisis lexico
             if(Resultado.equals("")){}
@@ -236,11 +251,11 @@ public class IDE extends javax.swing.JFrame {
         catch (IOException ex) {
             Logger.getLogger(IDE.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_btnAbrirArchivoActionPerformed
 
     private void btn_ejecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ejecutarActionPerformed
-        if(txtAreaContenido.getText().toString().equals("")){
-            txtSalida.setText(txtSalida.getText() + "\n" + "No hay entra para analizar");
+        if(txtAreaContenido.getText().toString().equals("") && pahtFile.equals("")){
+            txtSalida.setText(txtSalida.getText() + "\n" + "No hay codigo por ejecutar");
         }
         else{
          new LP_RHS().ejecutaLP(pahtFile, txtSalida);//ejecutamos en codigo con el nalaizador lexico javacc
@@ -249,13 +264,17 @@ public class IDE extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_ejecutarActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);//cerramos la ejecucion
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        guardar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btn_GuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarComoActionPerformed
+        GuardarComo();
+    }//GEN-LAST:event_btn_GuardarComoActionPerformed
     
     //metodo que permite abrir el archivo y a analizar y prepara la entrada para el analizador lexico
     public String ArbrirArchivo() throws IOException
@@ -271,7 +290,7 @@ public class IDE extends javax.swing.JFrame {
            if(seleccionado == JFileChooser.APPROVE_OPTION){
             try {
                String ruta = fileChooser.getSelectedFile().getAbsolutePath(); 
-               pahtFile=ruta;
+               pahtFile=ruta;//al abrir un arcvhivo guradamos su direccion para despues mandarsela al compilador de LP_RHS 
                File f = new File(ruta);       
                entrada = new Scanner(f);
                entrada2=new Scanner(f);
@@ -305,7 +324,110 @@ public class IDE extends javax.swing.JFrame {
           return Cadena;//si no se llego a seleccionar un archivo .txt retornamos una cadena vacio
 	}
   
+        public void guardar(){
+            if(pahtFile.equals("")){
+                GuardarComo();
+            }
+            else{
+                FileWriter fichero = null;
+               PrintWriter pw = null;
+               try
+               {
+                   fichero = new FileWriter(pahtFile);
+                   pw = new PrintWriter(fichero);
+                   pw.write(txtAreaContenido.getText());
+
+               } 
+                   catch (Exception e) {
+                   e.printStackTrace();
+               } 
+               finally 
+               {
+                  try {
+                      CargarArchivo();//si hacemos modificaciones sobre el jTextPane y damos en guardar, cargamos el archivo nuevamente
+                   // Nuevamente aprovechamos el finally para 
+                   // asegurarnos que se cierra el fichero.
+                   if (null != fichero){
+                      fichero.close();
+                    }
+                  } 
+                  catch (Exception e2) {
+                     e2.printStackTrace();
+                  }
+               }    
+            }
+        }
+        
+        public void GuardarComo(){
+            String texto = txtAreaContenido.getText();//variable para comparacion
+        
+        if (texto.matches("[[ ]*[\n]*[\t]]*")) {//compara si en el JTextArea hay texto sino muestrtra un mensaje en pantalla
+            JOptionPane.showMessageDialog(null,"No hay texto para guardar!", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("todos los archivos *.txt", "txt","txt"));//filtro para ver solo archivos .legnf
+            int seleccion = fileChooser.showSaveDialog(null);
+            try{
+                if (seleccion == JFileChooser.APPROVE_OPTION){//comprueba si ha presionado el boton de aceptar
+                    File JFC = fileChooser.getSelectedFile();
+                    String PATH = JFC.getAbsolutePath();//obtenemos el path del archivo a guardar
+                    pahtFile=PATH;//actualizamos la varible glovalq ue guarda la direccion del archivo a ejecutar
+                    PrintWriter printwriter = new PrintWriter(JFC);
+                    printwriter.print(txtAreaContenido.getText());//escribe en el archivo todo lo que se encuentre en el JTextArea
+                    printwriter.close();//cierra el archivo
+                    
+                    //comprobamos si a la hora de guardar obtuvo la extension y si no se la asignamos
+                    if(!(PATH.endsWith(".txt"))){
+                        File temp = new File(PATH+".txt");
+                        JFC.renameTo(temp);
+                    }
+                    
+                    JOptionPane.showMessageDialog(null,"Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
+                    CargarArchivo();
+                }
+            }catch (Exception e){//por alguna excepcion salta un mensaje de error
+                JOptionPane.showMessageDialog(null,"Error al guardar el archivo!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }    
+        
     
+    
+        }
+        
+        public void CargarArchivo(){
+            Scanner entrada=null, entrada2=null; 
+            String Cadena="", Contenido="";
+            try{
+               File f = new File(pahtFile);  //cuando valvamos a cargar el archivo, utilizamos la variable global que guarda la direccion dle archivo abierto     
+               entrada = new Scanner(f);
+               entrada2=new Scanner(f);
+               while (entrada.hasNext()) {//preparamos la entradad ára el analizador lexico
+                   Cadena += entrada.nextLine() + " ";
+               }
+               while(entrada2.hasNext()){//este segundo siclo es epara llenar el contenido que se presentara en la primera venta
+                   Contenido+=entrada2.nextLine() + "\n";
+               }
+           } 
+           catch (FileNotFoundException e) {
+               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage());
+               //System.out.println(e.getMessage());
+           } 
+           catch (NullPointerException e) {
+               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage() + "No se ha seleccionado ningún fichero");
+           } 
+           catch (Exception e) {
+               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage());
+               //System.out.println(e.getMessage());
+           } 
+           finally {
+               if (entrada != null && entrada2!=null) {
+                   entrada.close();
+                   entrada2.close();
+               }
+           }  
+            Resultado=Cadena;
+        }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -340,18 +462,19 @@ public class IDE extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnAbrirArchivo;
+    private javax.swing.JMenuItem btnGuardar;
+    private javax.swing.JMenuItem btnSalir;
+    private javax.swing.JMenuItem btn_GuardarComo;
     private javax.swing.JButton btn_ejecutar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

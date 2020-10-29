@@ -95,29 +95,37 @@ public interface Sintaxis_RHSConstants {
   /** RegularExpression Id. */
   int DIF = 42;
   /** RegularExpression Id. */
-  int OR = 43;
+  int BAN = 43;
   /** RegularExpression Id. */
-  int AND = 44;
+  int OR = 44;
   /** RegularExpression Id. */
-  int INT = 45;
+  int AND = 45;
   /** RegularExpression Id. */
-  int DEC = 46;
+  int TRUE = 46;
   /** RegularExpression Id. */
-  int CHR = 47;
+  int FALSE = 47;
   /** RegularExpression Id. */
-  int STR = 48;
+  int INT = 48;
   /** RegularExpression Id. */
-  int NUMERO = 49;
+  int DEC = 49;
   /** RegularExpression Id. */
-  int IDENTIDICADOR = 50;
+  int CHR = 50;
   /** RegularExpression Id. */
-  int DECIMAL = 51;
+  int STR = 51;
   /** RegularExpression Id. */
-  int CADENA = 52;
+  int BOOL = 52;
   /** RegularExpression Id. */
-  int CARAC = 53;
+  int NUMERO = 53;
   /** RegularExpression Id. */
-  int DOUBLEPOINT = 54;
+  int IDENTIDICADOR = 54;
+  /** RegularExpression Id. */
+  int DECIMAL = 55;
+  /** RegularExpression Id. */
+  int CADENA = 56;
+  /** RegularExpression Id. */
+  int CARAC = 57;
+  /** RegularExpression Id. */
+  int DOUBLEPOINT = 58;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -167,12 +175,16 @@ public interface Sintaxis_RHSConstants {
     "\">=\"",
     "\">\"",
     "\"!=\"",
+    "\"!\"",
     "\"||\"",
     "\"&&\"",
+    "\"true\"",
+    "\"false\"",
     "\"Int\"",
     "\"Dec\"",
     "\"Chr\"",
     "\"Str\"",
+    "\"Bool\"",
     "<NUMERO>",
     "<IDENTIDICADOR>",
     "<DECIMAL>",

@@ -74,8 +74,11 @@ TOKEN:
 	| <MAYQ: ">=" > 
 	| <MAY: ">" > 
 	| <DIF: "!=" > 
+        | <BAN: "!" > 
 	| <OR: "||" > 
 	| <AND: "&&"> 
+        | <TRUE: "true">
+        | <FALSE: "false">
 }
 
 TOKEN:
@@ -84,12 +87,13 @@ TOKEN:
 	| <DEC: "Dec"> //45
 	| <CHR: "Chr"> //46
 	| <STR: "Str"> //47
-	| <NUMERO : (["0"-"9"])+>  //48
-	| <IDENTIDICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //49
-	| <DECIMAL : (["0"-"9"])+["."](["0"-"9"])+ > //50
-	| <CADENA : <DOUBLECOMMA>["a"-"z","A"-"Z","0"-"9"," "](["a"-"z","A"-"Z","0"-"9"," ",":",";","."])*<DOUBLECOMMA>> //51
-	| <CARAC : "'"["a"-"z","A"-"Z","0"-"9"]"'" >//52 
-	| <DOUBLEPOINT : ":">
+        | <BOOL: "Bool"> //48
+	| <NUMERO : (["0"-"9"])+>  //49
+	| <IDENTIDICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //50
+	| <DECIMAL : (["0"-"9"])+["."](["0"-"9"])+ > //51
+	| <CADENA : <DOUBLECOMMA>["a"-"z","A"-"Z","0"-"9"," "](["a"-"z","A"-"Z","0"-"9"," ",":",";","."])*<DOUBLECOMMA>> //52
+	| <CARAC : "'"["a"-"z","A"-"Z","0"-"9"]"'" >//53
+	| <DOUBLEPOINT : ":"> //54
 }
 
 SKIP : 
@@ -135,7 +139,7 @@ void Sentencias():
 {
 	(	
 	  VariablesLocales()	
-    | SentenciaIf() 	
+        | SentenciaIf() 	
 	| SentenciaFor()
 	| SentenciaWhile()
 	| SentenciaDo()	
@@ -153,7 +157,21 @@ void VS():
 void SentenciaIf():
 {}
 {
-	<IF><PARENI><PAREND><LLAVEI><LLAVED> (Sino())*
+	<IF><PARENI>
+        <IDENTIDICADOR>(<MEN><IDENTIDICADOR>|<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)|<MENQ><IDENTIDICADOR>
+        |<MAY><IDENTIDICADOR>|<MAYQ><IDENTIDICADOR>|<DIF><IDENTIDICADOR>
+        |<OR><IDENTIDICADOR>|<AND><IDENTIDICADOR>|<BAN>)*
+        <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())* (Sino())+
+}
+
+void SentenciaIfElse():
+{}
+{
+	<IF><ELSE><PARENI>
+        <IDENTIDICADOR>(<MEN><IDENTIDICADOR>|<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)|<MENQ><IDENTIDICADOR>
+        |<MAY><IDENTIDICADOR>|<MAYQ><IDENTIDICADOR>|<DIF><IDENTIDICADOR>
+        |<OR><IDENTIDICADOR>|<AND><IDENTIDICADOR>|<BAN>)*
+       <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())* (Sino())+
 }
 
 void Sino():
@@ -165,13 +183,15 @@ void Sino():
 void SentenciaFor():
 {}
 {
-	<FOR><PARENI><PAREND><LLAVEI><LLAVED>
+	<FOR><PARENI>(<INT><IDENTIDICADOR><ASIGNACION><NUMERO><PUNTCOM><IDENTIDICADOR>(<MEN><IDENTIDICADOR>|<MENQ><IDENTIDICADOR>
+        |<MAY><IDENTIDICADOR>|<MAYQ><IDENTIDICADOR>)<PUNTCOM><IDENTIDICADOR>(<INCR>|<DECR>))<PAREND><LLAVEI><LLAVED>
 }
 
 void SentenciaWhile():
 {}
 {
-	<WHILE><PARENI><PAREND><LLAVEI><LLAVED>
+	<WHILE><PARENI>
+        <PAREND><LLAVEI><LLAVED>
 }
 
 void SentenciaDo():

@@ -141,7 +141,7 @@ public interface Sintaxis_RHSConstants {
     "\"BEGIN\"",
     "\"_if\"",
     "\"_else\"",
-    "\"_ifElse\"",
+    "\"_elif\"",
     "\"_for\"",
     "\"_SW\"",
     "\"case_SW\"",

@@ -10,6 +10,7 @@ package Analizador;
 public class Sintaxis_RHS {
 }
 
+
 PARSER_END(Sintaxis_RHS)
 
 /** Comenzamos a definir los tokens de mi lenguaje**/
@@ -40,7 +41,7 @@ TOKEN:
 {
 	  <IF: "_if" > 
 	| <ELSE:"_else" > 
-	| <ELSEIF:"_ifElse" > 
+	| <ELSEIF:"_elif" > 
 	| <FOR:"_for" > 
 	| <SWITCH:"_SW" > 
 	| <CASE:"case_SW" > 
@@ -106,6 +107,13 @@ void EjecutarLP():
 	
 }
 
+
+void Mensaje():
+{}
+	{
+		<WRITE><PARENI><CADENA><PAREND><PUNTCOM>
+	}
+
 void Bloque():
 {}
 {
@@ -135,12 +143,14 @@ void Sentencias():
 {
 	(	
 	  VariablesLocales()	
-    | SentenciaIf() 	
+    | SentenciaIf()
+	| SentenciaElseif()
 	| SentenciaFor()
 	| SentenciaWhile()
 	| SentenciaDo()	
 	| SentenciaSwitch()
 	| Evaluar()
+	| Mensaje()
 	)*
 }
 
@@ -154,6 +164,12 @@ void SentenciaIf():
 {}
 {
 	<IF><PARENI><PAREND><LLAVEI><LLAVED> (Sino())*
+}
+
+void SentenciaElseif():
+{}
+{
+	<ELSEIF><PARENI><PAREND><LLAVEI><LLAVED> (Sino())*
 }
 
 void Sino():

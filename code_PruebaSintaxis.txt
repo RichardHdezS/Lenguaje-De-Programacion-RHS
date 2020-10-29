@@ -13,7 +13,7 @@ BEGIN Sintaxis{
 	_if(){
 		}
 	
-	_if(){
+	_elif(){
 		}
 	_else(){
 	}	
@@ -24,8 +24,6 @@ BEGIN Sintaxis{
 	}
 	_while();
 
-	EvaluarExprecion[4*4-5+5/2];
-	EvaluarExprecion[-(1+1*6/3-5+1*-2)];
 	
 	_SW()
 		{}

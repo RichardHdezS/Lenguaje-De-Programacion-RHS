@@ -10,8 +10,21 @@ import IDE.IDE;
 /**
  *
  * @author AkiibaRichard
+ * @author MiGaki
+ * @author FlipEduardo7
  */
 
+/*
+Si desean modificar la sintaxis deben entrar al archivo 'Sintaxis.jj' que esta
+dentro de la carpeta Analizador.
+Una vez que haya terminado de hacer modificaciones deben compilar el archivo 
+con javacc, para ello:
+        1.-En el CMD accedan hasta la carpeta donde esta el archivo .jj
+        2.- Ejecuten la intruccion javacc Sintaxis.jj
+        3.- Listo, el resto de archivos dentro de la carpeta analizador se actu-
+        alizaran. Ya solo recuerden ejecutar en nuestro "IDE" :) una neuva sintaxis
+        con las nuevas modificaciones.
+*/
 import Analizador.Sintaxis_RHS;
 import Analizador.ParseException;
 import Analizador.TokenMgrError;

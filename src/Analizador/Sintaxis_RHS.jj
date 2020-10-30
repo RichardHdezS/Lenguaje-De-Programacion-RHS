@@ -169,7 +169,7 @@ void SentenciaIf():
         |<AND><IDENTIDICADOR>
         |<OR><IDENTIDICADOR>
         |<BAN>)
-        <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())* (Sino())+
+        <PAREND><LLAVEI><LLAVED> (SentenciaIfElse() | Sino())+ 
 }
 
 void SentenciaIfElse():

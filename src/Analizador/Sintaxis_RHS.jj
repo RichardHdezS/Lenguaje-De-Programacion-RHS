@@ -186,7 +186,7 @@ void SentenciaIfElse():
         |<OR><IDENTIDICADOR>
         |<AND><IDENTIDICADOR>
         |<BAN>)
-         <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())*   (Sino())+
+         <PAREND><LLAVEI><LLAVED> (SentenciaIfElse() | Sino())+ 
 }
 
 void Sino():
@@ -256,8 +256,11 @@ void SentenciaSwitch():
 	<PAREND>
 	<LLAVEI>
 	(<CASE><IDENTIDICADOR><DOUBLEPOINT>
-	<BREAK> <PUNTCOM>)+
-	<DEFAUL><DOUBLEPOINT><BREAK><PUNTCOM>
+	Sentencias()
+	<BREAK><PUNTCOM>)+
+	<DEFAUL><DOUBLEPOINT>
+	Sentencias()
+	<BREAK><PUNTCOM>
 	<LLAVED>
 }
 

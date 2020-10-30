@@ -228,7 +228,23 @@ void SentenciaWhile():
 void SentenciaDo():
 {}
 {
-	<DO><LLAVEI><LLAVED><WHILE><PARENI><PAREND><PUNTCOM>
+	<DO>
+	<LLAVEI>
+	<LLAVED>
+	<WHILE>
+	<PARENI>
+        <IDENTIDICADOR>
+        (<MEN><IDENTIDICADOR>
+        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
+        |<MENQ><IDENTIDICADOR>
+        |<MAY><IDENTIDICADOR>
+        |<MAYQ><IDENTIDICADOR>
+        |<DIF><IDENTIDICADOR>
+        |<OR><IDENTIDICADOR>
+        |<AND><IDENTIDICADOR>
+        |<BAN>)
+	<PAREND>
+	<PUNTCOM>
 }
 
 void SentenciaSwitch():

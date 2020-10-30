@@ -134,6 +134,7 @@ public class IDE extends javax.swing.JFrame {
         jMenu1.setText("Inicio");
         jMenu1.setFont(new java.awt.Font("HP Simplified Jpan Light", 3, 18)); // NOI18N
 
+        btnAbrirArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         btnAbrirArchivo.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         btnAbrirArchivo.setText("Abrir");
         btnAbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +144,7 @@ public class IDE extends javax.swing.JFrame {
         });
         jMenu1.add(btnAbrirArchivo);
 
+        btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         btnGuardar.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +154,7 @@ public class IDE extends javax.swing.JFrame {
         });
         jMenu1.add(btnGuardar);
 
+        btn_GuardarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         btn_GuardarComo.setFont(new java.awt.Font("HP Simplified Light", 1, 14)); // NOI18N
         btn_GuardarComo.setText("Guardar como");
         btn_GuardarComo.addActionListener(new java.awt.event.ActionListener() {
@@ -161,6 +164,7 @@ public class IDE extends javax.swing.JFrame {
         });
         jMenu1.add(btn_GuardarComo);
 
+        btnSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
         btnSalir.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -175,14 +179,17 @@ public class IDE extends javax.swing.JFrame {
         jMenu2.setText("Ayuda");
         jMenu2.setFont(new java.awt.Font("HP Simplified Jpan Light", 3, 18)); // NOI18N
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem2.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem2.setText("Manual de Usuario");
         jMenu2.add(jMenuItem2);
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem3.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem3.setText("Manual Tecnico");
         jMenu2.add(jMenuItem3);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem4.setFont(new java.awt.Font("HP Simplified Light", 3, 15)); // NOI18N
         jMenuItem4.setText("Temas de Ayuda");
         jMenu2.add(jMenuItem4);

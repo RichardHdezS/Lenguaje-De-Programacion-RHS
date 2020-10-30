@@ -8,12 +8,12 @@ BEGIN Sintaxis{
 	StartMain(){
 	Dec nvaVariable;
 
-	_for(){}
+	_for(Int i=0;i<X;i++){}
 
-	_if(){
+	_if(X==true){
 		}
 	
-	_if(){
+	_ifElse(x==false){
 		}
 	_else(){
 	}	

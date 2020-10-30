@@ -138,11 +138,11 @@ void Sentencias():
 {}
 {
 	(	
-	  VariablesLocales()	
-        | SentenciaIf() 	
+	  VariablesLocales()
+        | SentenciaIf()
 	| SentenciaFor()
 	| SentenciaWhile()
-	| SentenciaDo()	
+	| SentenciaDo()
 	| SentenciaSwitch()
 	| Evaluar()
 	)*
@@ -158,20 +158,35 @@ void SentenciaIf():
 {}
 {
 	<IF><PARENI>
-        <IDENTIDICADOR>(<MEN><IDENTIDICADOR>|<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)|<MENQ><IDENTIDICADOR>
-        |<MAY><IDENTIDICADOR>|<MAYQ><IDENTIDICADOR>|<DIF><IDENTIDICADOR>
-        |<OR><IDENTIDICADOR>|<AND><IDENTIDICADOR>|<BAN>)*
+        <IDENTIDICADOR>
+        (
+        <MEN><IDENTIDICADOR>
+        |<MAY><IDENTIDICADOR>
+        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
+        |<MENQ><IDENTIDICADOR>
+        |<MAYQ><IDENTIDICADOR>
+        |<DIF><IDENTIDICADOR>
+        |<AND><IDENTIDICADOR>
+        |<OR><IDENTIDICADOR>
+        |<BAN>)
         <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())* (Sino())+
 }
 
 void SentenciaIfElse():
 {}
 {
-	<IF><ELSE><PARENI>
-        <IDENTIDICADOR>(<MEN><IDENTIDICADOR>|<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)|<MENQ><IDENTIDICADOR>
-        |<MAY><IDENTIDICADOR>|<MAYQ><IDENTIDICADOR>|<DIF><IDENTIDICADOR>
-        |<OR><IDENTIDICADOR>|<AND><IDENTIDICADOR>|<BAN>)*
-       <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())* (Sino())+
+	<ELSEIF><PARENI>
+        <IDENTIDICADOR>
+        (<MEN><IDENTIDICADOR>
+        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
+        |<MENQ><IDENTIDICADOR>
+        |<MAY><IDENTIDICADOR>
+        |<MAYQ><IDENTIDICADOR>
+        |<DIF><IDENTIDICADOR>
+        |<OR><IDENTIDICADOR>
+        |<AND><IDENTIDICADOR>
+        |<BAN>)
+         <PAREND><LLAVEI><LLAVED> (SentenciaIfElse())*   (Sino())+
 }
 
 void Sino():
@@ -190,8 +205,7 @@ void SentenciaFor():
 void SentenciaWhile():
 {}
 {
-	<WHILE><PARENI>
-        <PAREND><LLAVEI><LLAVED>
+	<WHILE><PARENI><PAREND><LLAVEI><LLAVED>
 }
 
 void SentenciaDo():

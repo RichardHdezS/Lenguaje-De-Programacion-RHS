@@ -39,7 +39,7 @@ public class AuxLexico {
 public void ExpRegulares(String Token)
 	{//en este metodo coocamos todos las palabras reservadas
 		Pattern PReservada = Pattern.compile("BEGIN|StartMain|import|package|class|static|void|main|return|new|null|extense|throw|throws" +
-			"|break|continue|default|implements|super|this|super|abstract|interface|synchronized");
+			"|break|continue|Defl|implements|super|this|super|abstract|interface|synchronized");
 		Pattern PTipoAcceso=Pattern.compile("public|private|protected|finally|final|Menu");
 		Pattern TCiclos =Pattern.compile("for|do|while|foreach");
 		Pattern TCondiciones = Pattern.compile("if|else|ifelse|switch|case");

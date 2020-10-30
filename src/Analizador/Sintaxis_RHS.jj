@@ -74,11 +74,11 @@ TOKEN:
 	| <MAYQ: ">=" > 
 	| <MAY: ">" > 
 	| <DIF: "!=" > 
-        | <BAN: "!" > 
+    | <BAN: "!" > 
 	| <OR: "||" > 
 	| <AND: "&&"> 
-        | <TRUE: "true">
-        | <FALSE: "false">
+    | <TRUE: "true">       
+	| <FALSE: "false">
 }
 
 TOKEN:
@@ -87,7 +87,7 @@ TOKEN:
 	| <DEC: "Dec"> //45
 	| <CHR: "Chr"> //46
 	| <STR: "Str"> //47
-        | <BOOL: "Bool"> //48
+    | <BOOL: "Bool"> //48
 	| <NUMERO : (["0"-"9"])+>  //49
 	| <IDENTIDICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //50
 	| <DECIMAL : (["0"-"9"])+["."](["0"-"9"])+ > //51
@@ -139,7 +139,7 @@ void Sentencias():
 {
 	(	
 	  VariablesLocales()
-        | SentenciaIf()
+    | SentenciaIf()
 	| SentenciaFor()
 	| SentenciaWhile()
 	| SentenciaDo()
@@ -212,16 +212,16 @@ void SentenciaWhile():
 {
 	<WHILE>
         <PARENI>
-        <IDENTIDICADOR>
-        (<MEN><IDENTIDICADOR>
-        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
-        |<MENQ><IDENTIDICADOR>
-        |<MAY><IDENTIDICADOR>
-        |<MAYQ><IDENTIDICADOR>
-        |<DIF><IDENTIDICADOR>
-        |<OR><IDENTIDICADOR>
-        |<AND><IDENTIDICADOR>
-        |<BAN>)
+			<IDENTIDICADOR>
+			(<MEN><IDENTIDICADOR>
+			|<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
+			|<MENQ><IDENTIDICADOR>
+			|<MAY><IDENTIDICADOR>
+			|<MAYQ><IDENTIDICADOR>
+			|<DIF><IDENTIDICADOR>
+			|<OR><IDENTIDICADOR>
+			|<AND><IDENTIDICADOR>
+			|<BAN>)
         <PAREND><LLAVEI><LLAVED>
 }
 
@@ -250,7 +250,15 @@ void SentenciaDo():
 void SentenciaSwitch():
 {}
 {
-	<SWITCH><PARENI><PAREND><LLAVEI><LLAVED>
+	<SWITCH>
+	<PARENI>
+	<IDENTIDICADOR>
+	<PAREND>
+	<LLAVEI>
+	(<CASE><IDENTIDICADOR><DOUBLEPOINT>
+	<BREAK> <PUNTCOM>)+
+	<DEFAUL><DOUBLEPOINT><BREAK><PUNTCOM>
+	<LLAVED>
 }
 
 /****Seccion para evaluar las expreciones aritmeticas*******/

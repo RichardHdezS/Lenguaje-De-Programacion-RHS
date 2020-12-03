@@ -116,6 +116,18 @@ void Bloque():
 	LOOKAHEAD(2)VariablesGlobales() | CuerpoPrincipal()
 }
 
+void VariableRec():
+{}
+{
+    (<INT>|<DEC>|<CHR>|<STR>)<IDENTIDICADOR>
+}
+
+void Method():
+{}
+{
+        <PUBLICO>|(<ESTATICO>)<VOID><IDENTIDICADOR><PARENI>|(VariableRec())<PAREND><LLAVEI><LLAVED>
+}
+
 void VariablesGlobales():
 {}
 {
@@ -145,6 +157,7 @@ void Sentencias():
 	| SentenciaDo()
 	| SentenciaSwitch()
 	| Evaluar()
+        | Method()
 	)*
 }
 

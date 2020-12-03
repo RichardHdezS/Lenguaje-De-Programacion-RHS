@@ -12,12 +12,12 @@ BEGIN Sintaxis{
 
 	_if(X==true){
 		}
-	
+
 	_ifElse(x==false){
 		}
 	_else(){
-	}	
-	
+	}
+
 	_while(x==false){}
 
 	_do{
@@ -26,15 +26,16 @@ BEGIN Sintaxis{
 
 	EvaluarExprecion[4*4-5+5/2];
 	EvaluarExprecion[-(1+1*6/3-5+1*-2)];
-	
+
 	_SW(opc){
-	case_SW x: 
+	case_SW x:
 	_do{
 	}_while(x==false);
 	Case_break;
-	Defl: 
+	Defl:
 	_for(i=0;i<X;){i++;}
 	Case_break;
 	}
+	public void metodo(int b){}
 }
 }

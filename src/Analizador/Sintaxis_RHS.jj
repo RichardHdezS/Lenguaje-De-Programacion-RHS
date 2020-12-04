@@ -116,24 +116,36 @@ void Bloque():
 	LOOKAHEAD(2)VariablesGlobales() | CuerpoPrincipal()
 }
 
-void VariableRec():
-{}
-{
-    (<INT>|<DEC>|<CHR>|<STR>)<IDENTIDICADOR>
-}
-
-void Method():
-{}
-{
-        <PUBLICO>|(<ESTATICO>)<VOID><IDENTIDICADOR><PARENI>|(VariableRec())<PAREND><LLAVEI><LLAVED>
-}
-
 void VariablesGlobales():
 {}
 {
-	(<PUBLICO>|<PRIVADO>)(<INT>|<DEC>|<CHR>|<STR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> Bloque()
+	(<PUBLICO>|<PRIVADO>) (DeclararInt()|DeclararBol()|DeclararChar()|DeclararStr()) Bloque()
 }
 
+void DeclararInt():
+{}
+	{
+		<INT><IDENTIDICADOR><ASIGNACION><NUMERO>(<COMMA><IDENTIDICADOR><ASIGNACION><NUMERO>)*<PUNTCOM>
+	}
+
+void DeclararStr():
+{}
+	{
+		<STR><IDENTIDICADOR><ASIGNACION><CADENA>(<COMMA><IDENTIDICADOR><ASIGNACION><CADENA>)*<PUNTCOM>
+	}
+
+void DeclararChar():
+{}
+	{
+		<CHR><IDENTIDICADOR><ASIGNACION><CARAC>(<COMMA><IDENTIDICADOR><ASIGNACION><CARAC>)*<PUNTCOM>
+	}
+	
+void DeclararBol():
+{}
+	{
+		<BOOL><IDENTIDICADOR><ASIGNACION>(<TRUE>|<FALSE>)(<COMMA><IDENTIDICADOR><ASIGNACION>(<TRUE>|<FALSE>))*<PUNTCOM>
+	}
+	
 void CuerpoPrincipal():
 {}
 {
@@ -157,7 +169,6 @@ void Sentencias():
 	| SentenciaDo()
 	| SentenciaSwitch()
 	| Evaluar()
-        | Method()
 	)*
 }
 
@@ -170,94 +181,44 @@ void VS():
 void SentenciaIf():
 {}
 {
-	<IF><PARENI>
-        <IDENTIDICADOR>
-        (
-        <MEN><IDENTIDICADOR>
-        |<MAY><IDENTIDICADOR>
-        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
-        |<MENQ><IDENTIDICADOR>
-        |<MAYQ><IDENTIDICADOR>
-        |<DIF><IDENTIDICADOR>
-        |<AND><IDENTIDICADOR>
-        |<OR><IDENTIDICADOR>
-        |<BAN>)
-        <PAREND><LLAVEI><LLAVED> (SentenciaIfElse() | Sino())+ 
+	<IF><PARENI>ValidaBool()<PAREND><LLAVEI>Sentencias()<LLAVED> (SentenciaIfElse() | Sino())+ 
 }
+
+void ValidaBool():
+{}
+	{
+	(<IDENTIDICADOR>|<NUMERO>|<DECIMAL>)(<MEN>|<MAY>|<IGUAL>|<MENQ>|<MAYQ>|<DIF>|<AND>|<OR>|<BAN>)(<IDENTIDICADOR>|<NUMERO>|<DECIMAL>)((<AND>|<OR>)((<IDENTIDICADOR>|<NUMERO>|<DECIMAL>)(<MEN>|<MAY>|<IGUAL>|<MENQ>|<MAYQ>|<DIF>|<AND>|<OR>|<BAN>)(<IDENTIDICADOR>|<NUMERO>|<DECIMAL>)))*
+	}
 
 void SentenciaIfElse():
 {}
 {
-	<ELSEIF><PARENI>
-        <IDENTIDICADOR>
-        (<MEN><IDENTIDICADOR>
-        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
-        |<MENQ><IDENTIDICADOR>
-        |<MAY><IDENTIDICADOR>
-        |<MAYQ><IDENTIDICADOR>
-        |<DIF><IDENTIDICADOR>
-        |<OR><IDENTIDICADOR>
-        |<AND><IDENTIDICADOR>
-        |<BAN>)
-         <PAREND><LLAVEI><LLAVED> (SentenciaIfElse() | Sino())+ 
+	<ELSEIF><PARENI>ValidaBool()<PAREND><LLAVEI>Sentencias()<LLAVED> (SentenciaIfElse() | Sino())+ 
 }
 
 void Sino():
 {}
 {
-	<ELSE><PARENI><PAREND><LLAVEI><LLAVED>
+	<ELSE><LLAVEI>Sentencias()<LLAVED>
 }
 
 void SentenciaFor():
 {}
 {
-	<FOR><PARENI>
-			((<INT>)?<IDENTIDICADOR><ASIGNACION><NUMERO><PUNTCOM><IDENTIDICADOR>(<MEN><IDENTIDICADOR>|<MENQ><IDENTIDICADOR>
-			|<MAY><IDENTIDICADOR>|<MAYQ><IDENTIDICADOR>)<PUNTCOM>(<IDENTIDICADOR>(<INCR>|<DECR>))?)
-		<PAREND>
-        <LLAVEI>
-            (<IDENTIDICADOR>(<INCR>|<DECR>)<PUNTCOM>)?
-		<LLAVED>
+	<FOR><PARENI>((<INT>)?<IDENTIDICADOR><ASIGNACION><NUMERO><PUNTCOM>ValidaBool()<PUNTCOM>(<IDENTIDICADOR>(<INCR>|<DECR>))?)<PAREND><LLAVEI>Sentencias()<LLAVED>
 }
 
 void SentenciaWhile():
 {}
 {
 	<WHILE>
-        <PARENI>
-			<IDENTIDICADOR>
-			(<MEN><IDENTIDICADOR>
-			|<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
-			|<MENQ><IDENTIDICADOR>
-			|<MAY><IDENTIDICADOR>
-			|<MAYQ><IDENTIDICADOR>
-			|<DIF><IDENTIDICADOR>
-			|<OR><IDENTIDICADOR>
-			|<AND><IDENTIDICADOR>
-			|<BAN>)
-        <PAREND><LLAVEI><LLAVED>
+        <PARENI>ValidaBool()<PAREND><LLAVEI>Sentencias()<LLAVED>
 }
 
 void SentenciaDo():
 {}
 {
-	<DO>
-	<LLAVEI>
-	<LLAVED>
-	<WHILE>
-	<PARENI>
-        <IDENTIDICADOR>
-        (<MEN><IDENTIDICADOR>
-        |<IGUAL>(<IDENTIDICADOR>|<FALSE>|<TRUE>)
-        |<MENQ><IDENTIDICADOR>
-        |<MAY><IDENTIDICADOR>
-        |<MAYQ><IDENTIDICADOR>
-        |<DIF><IDENTIDICADOR>
-        |<OR><IDENTIDICADOR>
-        |<AND><IDENTIDICADOR>
-        |<BAN>)
-	<PAREND>
-	<PUNTCOM>
+	<DO><LLAVEI>Sentencias()<LLAVED><WHILE><PARENI>ValidaBool()<PAREND><PUNTCOM>
 }
 
 void SentenciaSwitch():

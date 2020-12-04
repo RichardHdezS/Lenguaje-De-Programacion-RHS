@@ -28,55 +28,6 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     }
   }
 
-  final public void VariableRec() throws ParseException {
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case INT:
-      jj_consume_token(INT);
-      break;
-    case DEC:
-      jj_consume_token(DEC);
-      break;
-    case CHR:
-      jj_consume_token(CHR);
-      break;
-    case STR:
-      jj_consume_token(STR);
-      break;
-    default:
-      jj_la1[1] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-    jj_consume_token(IDENTIDICADOR);
-  }
-
-  final public void Method() throws ParseException {
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case PUBLICO:
-      jj_consume_token(PUBLICO);
-      break;
-    case ESTATICO:
-      jj_consume_token(ESTATICO);
-      jj_consume_token(VOID);
-      jj_consume_token(IDENTIDICADOR);
-      jj_consume_token(PARENI);
-      break;
-    case INT:
-    case DEC:
-    case CHR:
-    case STR:
-      VariableRec();
-      jj_consume_token(PAREND);
-      jj_consume_token(LLAVEI);
-      jj_consume_token(LLAVED);
-      break;
-    default:
-      jj_la1[2] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-  }
-
   final public void VariablesGlobales() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PUBLICO:
@@ -86,29 +37,36 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
       jj_consume_token(PRIVADO);
       break;
     default:
-      jj_la1[3] = jj_gen;
+      jj_la1[1] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INT:
-      jj_consume_token(INT);
+      DeclararInt();
       break;
-    case DEC:
-      jj_consume_token(DEC);
+    case BOOL:
+      DeclararBol();
       break;
     case CHR:
-      jj_consume_token(CHR);
+      DeclararChar();
       break;
     case STR:
-      jj_consume_token(STR);
+      DeclararStr();
       break;
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[2] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
+    Bloque();
+  }
+
+  final public void DeclararInt() throws ParseException {
+    jj_consume_token(INT);
     jj_consume_token(IDENTIDICADOR);
+    jj_consume_token(ASIGNACION);
+    jj_consume_token(NUMERO);
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -116,14 +74,106 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         ;
         break;
       default:
-        jj_la1[5] = jj_gen;
+        jj_la1[3] = jj_gen;
         break label_1;
       }
       jj_consume_token(COMMA);
       jj_consume_token(IDENTIDICADOR);
+      jj_consume_token(ASIGNACION);
+      jj_consume_token(NUMERO);
     }
     jj_consume_token(PUNTCOM);
-    Bloque();
+  }
+
+  final public void DeclararStr() throws ParseException {
+    jj_consume_token(STR);
+    jj_consume_token(IDENTIDICADOR);
+    jj_consume_token(ASIGNACION);
+    jj_consume_token(CADENA);
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COMMA:
+        ;
+        break;
+      default:
+        jj_la1[4] = jj_gen;
+        break label_2;
+      }
+      jj_consume_token(COMMA);
+      jj_consume_token(IDENTIDICADOR);
+      jj_consume_token(ASIGNACION);
+      jj_consume_token(CADENA);
+    }
+    jj_consume_token(PUNTCOM);
+  }
+
+  final public void DeclararChar() throws ParseException {
+    jj_consume_token(CHR);
+    jj_consume_token(IDENTIDICADOR);
+    jj_consume_token(ASIGNACION);
+    jj_consume_token(CARAC);
+    label_3:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COMMA:
+        ;
+        break;
+      default:
+        jj_la1[5] = jj_gen;
+        break label_3;
+      }
+      jj_consume_token(COMMA);
+      jj_consume_token(IDENTIDICADOR);
+      jj_consume_token(ASIGNACION);
+      jj_consume_token(CARAC);
+    }
+    jj_consume_token(PUNTCOM);
+  }
+
+  final public void DeclararBol() throws ParseException {
+    jj_consume_token(BOOL);
+    jj_consume_token(IDENTIDICADOR);
+    jj_consume_token(ASIGNACION);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case TRUE:
+      jj_consume_token(TRUE);
+      break;
+    case FALSE:
+      jj_consume_token(FALSE);
+      break;
+    default:
+      jj_la1[6] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    label_4:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COMMA:
+        ;
+        break;
+      default:
+        jj_la1[7] = jj_gen;
+        break label_4;
+      }
+      jj_consume_token(COMMA);
+      jj_consume_token(IDENTIDICADOR);
+      jj_consume_token(ASIGNACION);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TRUE:
+        jj_consume_token(TRUE);
+        break;
+      case FALSE:
+        jj_consume_token(FALSE);
+        break;
+      default:
+        jj_la1[8] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+    jj_consume_token(PUNTCOM);
   }
 
   final public void CuerpoPrincipal() throws ParseException {
@@ -148,20 +198,20 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
       jj_consume_token(STR);
       break;
     default:
-      jj_la1[6] = jj_gen;
+      jj_la1[9] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
     jj_consume_token(IDENTIDICADOR);
-    label_2:
+    label_5:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case COMMA:
         ;
         break;
       default:
-        jj_la1[7] = jj_gen;
-        break label_2;
+        jj_la1[10] = jj_gen;
+        break label_5;
       }
       jj_consume_token(COMMA);
       jj_consume_token(IDENTIDICADOR);
@@ -171,12 +221,10 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
   }
 
   final public void Sentencias() throws ParseException {
-    label_3:
+    label_6:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case EVALUAR:
-      case PUBLICO:
-      case ESTATICO:
       case IF:
       case FOR:
       case SWITCH:
@@ -189,8 +237,8 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         ;
         break;
       default:
-        jj_la1[8] = jj_gen;
-        break label_3;
+        jj_la1[11] = jj_gen;
+        break label_6;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case INT:
@@ -217,12 +265,8 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
       case EVALUAR:
         Evaluar();
         break;
-      case PUBLICO:
-      case ESTATICO:
-        Method();
-        break;
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[12] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -240,66 +284,12 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
   final public void SentenciaIf() throws ParseException {
     jj_consume_token(IF);
     jj_consume_token(PARENI);
-    jj_consume_token(IDENTIDICADOR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case MEN:
-      jj_consume_token(MEN);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAY:
-      jj_consume_token(MAY);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case IGUAL:
-      jj_consume_token(IGUAL);
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IDENTIDICADOR:
-        jj_consume_token(IDENTIDICADOR);
-        break;
-      case FALSE:
-        jj_consume_token(FALSE);
-        break;
-      case TRUE:
-        jj_consume_token(TRUE);
-        break;
-      default:
-        jj_la1[10] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      break;
-    case MENQ:
-      jj_consume_token(MENQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAYQ:
-      jj_consume_token(MAYQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case DIF:
-      jj_consume_token(DIF);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case AND:
-      jj_consume_token(AND);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case OR:
-      jj_consume_token(OR);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case BAN:
-      jj_consume_token(BAN);
-      break;
-    default:
-      jj_la1[11] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
+    ValidaBool();
     jj_consume_token(PAREND);
     jj_consume_token(LLAVEI);
+    Sentencias();
     jj_consume_token(LLAVED);
-    label_4:
+    label_7:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ELSEIF:
@@ -309,7 +299,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         Sino();
         break;
       default:
-        jj_la1[12] = jj_gen;
+        jj_la1[13] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -319,8 +309,161 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         ;
         break;
       default:
-        jj_la1[13] = jj_gen;
-        break label_4;
+        jj_la1[14] = jj_gen;
+        break label_7;
+      }
+    }
+  }
+
+  final public void ValidaBool() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IDENTIDICADOR:
+      jj_consume_token(IDENTIDICADOR);
+      break;
+    case NUMERO:
+      jj_consume_token(NUMERO);
+      break;
+    case DECIMAL:
+      jj_consume_token(DECIMAL);
+      break;
+    default:
+      jj_la1[15] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case MEN:
+      jj_consume_token(MEN);
+      break;
+    case MAY:
+      jj_consume_token(MAY);
+      break;
+    case IGUAL:
+      jj_consume_token(IGUAL);
+      break;
+    case MENQ:
+      jj_consume_token(MENQ);
+      break;
+    case MAYQ:
+      jj_consume_token(MAYQ);
+      break;
+    case DIF:
+      jj_consume_token(DIF);
+      break;
+    case AND:
+      jj_consume_token(AND);
+      break;
+    case OR:
+      jj_consume_token(OR);
+      break;
+    case BAN:
+      jj_consume_token(BAN);
+      break;
+    default:
+      jj_la1[16] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IDENTIDICADOR:
+      jj_consume_token(IDENTIDICADOR);
+      break;
+    case NUMERO:
+      jj_consume_token(NUMERO);
+      break;
+    case DECIMAL:
+      jj_consume_token(DECIMAL);
+      break;
+    default:
+      jj_la1[17] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    label_8:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OR:
+      case AND:
+        ;
+        break;
+      default:
+        jj_la1[18] = jj_gen;
+        break label_8;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case AND:
+        jj_consume_token(AND);
+        break;
+      case OR:
+        jj_consume_token(OR);
+        break;
+      default:
+        jj_la1[19] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IDENTIDICADOR:
+        jj_consume_token(IDENTIDICADOR);
+        break;
+      case NUMERO:
+        jj_consume_token(NUMERO);
+        break;
+      case DECIMAL:
+        jj_consume_token(DECIMAL);
+        break;
+      default:
+        jj_la1[20] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case MEN:
+        jj_consume_token(MEN);
+        break;
+      case MAY:
+        jj_consume_token(MAY);
+        break;
+      case IGUAL:
+        jj_consume_token(IGUAL);
+        break;
+      case MENQ:
+        jj_consume_token(MENQ);
+        break;
+      case MAYQ:
+        jj_consume_token(MAYQ);
+        break;
+      case DIF:
+        jj_consume_token(DIF);
+        break;
+      case AND:
+        jj_consume_token(AND);
+        break;
+      case OR:
+        jj_consume_token(OR);
+        break;
+      case BAN:
+        jj_consume_token(BAN);
+        break;
+      default:
+        jj_la1[21] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IDENTIDICADOR:
+        jj_consume_token(IDENTIDICADOR);
+        break;
+      case NUMERO:
+        jj_consume_token(NUMERO);
+        break;
+      case DECIMAL:
+        jj_consume_token(DECIMAL);
+        break;
+      default:
+        jj_la1[22] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
       }
     }
   }
@@ -328,66 +471,12 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
   final public void SentenciaIfElse() throws ParseException {
     jj_consume_token(ELSEIF);
     jj_consume_token(PARENI);
-    jj_consume_token(IDENTIDICADOR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case MEN:
-      jj_consume_token(MEN);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case IGUAL:
-      jj_consume_token(IGUAL);
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IDENTIDICADOR:
-        jj_consume_token(IDENTIDICADOR);
-        break;
-      case FALSE:
-        jj_consume_token(FALSE);
-        break;
-      case TRUE:
-        jj_consume_token(TRUE);
-        break;
-      default:
-        jj_la1[14] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      break;
-    case MENQ:
-      jj_consume_token(MENQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAY:
-      jj_consume_token(MAY);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAYQ:
-      jj_consume_token(MAYQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case DIF:
-      jj_consume_token(DIF);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case OR:
-      jj_consume_token(OR);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case AND:
-      jj_consume_token(AND);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case BAN:
-      jj_consume_token(BAN);
-      break;
-    default:
-      jj_la1[15] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
+    ValidaBool();
     jj_consume_token(PAREND);
     jj_consume_token(LLAVEI);
+    Sentencias();
     jj_consume_token(LLAVED);
-    label_5:
+    label_9:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case ELSEIF:
@@ -397,7 +486,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         Sino();
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[23] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -407,17 +496,16 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         ;
         break;
       default:
-        jj_la1[17] = jj_gen;
-        break label_5;
+        jj_la1[24] = jj_gen;
+        break label_9;
       }
     }
   }
 
   final public void Sino() throws ParseException {
     jj_consume_token(ELSE);
-    jj_consume_token(PARENI);
-    jj_consume_token(PAREND);
     jj_consume_token(LLAVEI);
+    Sentencias();
     jj_consume_token(LLAVED);
   }
 
@@ -429,36 +517,14 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
       jj_consume_token(INT);
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[25] = jj_gen;
       ;
     }
     jj_consume_token(IDENTIDICADOR);
     jj_consume_token(ASIGNACION);
     jj_consume_token(NUMERO);
     jj_consume_token(PUNTCOM);
-    jj_consume_token(IDENTIDICADOR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case MEN:
-      jj_consume_token(MEN);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MENQ:
-      jj_consume_token(MENQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAY:
-      jj_consume_token(MAY);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAYQ:
-      jj_consume_token(MAYQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    default:
-      jj_la1[19] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
+    ValidaBool();
     jj_consume_token(PUNTCOM);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case IDENTIDICADOR:
@@ -469,130 +535,6 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         break;
       case DECR:
         jj_consume_token(DECR);
-        break;
-      default:
-        jj_la1[20] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      break;
-    default:
-      jj_la1[21] = jj_gen;
-      ;
-    }
-    jj_consume_token(PAREND);
-    jj_consume_token(LLAVEI);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case IDENTIDICADOR:
-      jj_consume_token(IDENTIDICADOR);
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case INCR:
-        jj_consume_token(INCR);
-        break;
-      case DECR:
-        jj_consume_token(DECR);
-        break;
-      default:
-        jj_la1[22] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      jj_consume_token(PUNTCOM);
-      break;
-    default:
-      jj_la1[23] = jj_gen;
-      ;
-    }
-    jj_consume_token(LLAVED);
-  }
-
-  final public void SentenciaWhile() throws ParseException {
-    jj_consume_token(WHILE);
-    jj_consume_token(PARENI);
-    jj_consume_token(IDENTIDICADOR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case MEN:
-      jj_consume_token(MEN);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case IGUAL:
-      jj_consume_token(IGUAL);
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IDENTIDICADOR:
-        jj_consume_token(IDENTIDICADOR);
-        break;
-      case FALSE:
-        jj_consume_token(FALSE);
-        break;
-      case TRUE:
-        jj_consume_token(TRUE);
-        break;
-      default:
-        jj_la1[24] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-      break;
-    case MENQ:
-      jj_consume_token(MENQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAY:
-      jj_consume_token(MAY);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAYQ:
-      jj_consume_token(MAYQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case DIF:
-      jj_consume_token(DIF);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case OR:
-      jj_consume_token(OR);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case AND:
-      jj_consume_token(AND);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case BAN:
-      jj_consume_token(BAN);
-      break;
-    default:
-      jj_la1[25] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-    jj_consume_token(PAREND);
-    jj_consume_token(LLAVEI);
-    jj_consume_token(LLAVED);
-  }
-
-  final public void SentenciaDo() throws ParseException {
-    jj_consume_token(DO);
-    jj_consume_token(LLAVEI);
-    jj_consume_token(LLAVED);
-    jj_consume_token(WHILE);
-    jj_consume_token(PARENI);
-    jj_consume_token(IDENTIDICADOR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case MEN:
-      jj_consume_token(MEN);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case IGUAL:
-      jj_consume_token(IGUAL);
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IDENTIDICADOR:
-        jj_consume_token(IDENTIDICADOR);
-        break;
-      case FALSE:
-        jj_consume_token(FALSE);
-        break;
-      case TRUE:
-        jj_consume_token(TRUE);
         break;
       default:
         jj_la1[26] = jj_gen;
@@ -600,38 +542,34 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         throw new ParseException();
       }
       break;
-    case MENQ:
-      jj_consume_token(MENQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAY:
-      jj_consume_token(MAY);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case MAYQ:
-      jj_consume_token(MAYQ);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case DIF:
-      jj_consume_token(DIF);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case OR:
-      jj_consume_token(OR);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case AND:
-      jj_consume_token(AND);
-      jj_consume_token(IDENTIDICADOR);
-      break;
-    case BAN:
-      jj_consume_token(BAN);
-      break;
     default:
       jj_la1[27] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
+      ;
     }
+    jj_consume_token(PAREND);
+    jj_consume_token(LLAVEI);
+    Sentencias();
+    jj_consume_token(LLAVED);
+  }
+
+  final public void SentenciaWhile() throws ParseException {
+    jj_consume_token(WHILE);
+    jj_consume_token(PARENI);
+    ValidaBool();
+    jj_consume_token(PAREND);
+    jj_consume_token(LLAVEI);
+    Sentencias();
+    jj_consume_token(LLAVED);
+  }
+
+  final public void SentenciaDo() throws ParseException {
+    jj_consume_token(DO);
+    jj_consume_token(LLAVEI);
+    Sentencias();
+    jj_consume_token(LLAVED);
+    jj_consume_token(WHILE);
+    jj_consume_token(PARENI);
+    ValidaBool();
     jj_consume_token(PAREND);
     jj_consume_token(PUNTCOM);
   }
@@ -642,7 +580,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     jj_consume_token(IDENTIDICADOR);
     jj_consume_token(PAREND);
     jj_consume_token(LLAVEI);
-    label_6:
+    label_10:
     while (true) {
       jj_consume_token(CASE);
       jj_consume_token(IDENTIDICADOR);
@@ -656,7 +594,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         break;
       default:
         jj_la1[28] = jj_gen;
-        break label_6;
+        break label_10;
       }
     }
     jj_consume_token(DEFAUL);
@@ -669,7 +607,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
 
 /****Seccion para evaluar las expreciones aritmeticas*******/
   final public void Evaluar() throws ParseException {
-    label_7:
+    label_11:
     while (true) {
       EvaluarOperacionesArit();
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -678,7 +616,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         break;
       default:
         jj_la1[29] = jj_gen;
-        break label_7;
+        break label_11;
       }
     }
   }
@@ -699,7 +637,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
   final public double Expresion() throws ParseException {
  double e, e1;
     e = ExpresionMultiplicativa();
-    label_8:
+    label_12:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MAS:
@@ -708,7 +646,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         break;
       default:
         jj_la1[30] = jj_gen;
-        break label_8;
+        break label_12;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MAS:
@@ -737,7 +675,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
   final public double ExpresionMultiplicativa() throws ParseException {
  double e, e1;
     e = ExpresionUnaria();
-    label_9:
+    label_13:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MULTI:
@@ -746,7 +684,7 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
         break;
       default:
         jj_la1[32] = jj_gen;
-        break label_9;
+        break label_13;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case MULTI:
@@ -837,17 +775,68 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     finally { jj_save(1, xla); }
   }
 
-  private boolean jj_3R_12() {
-    if (jj_scan_token(COMMA)) return true;
+  private boolean jj_3R_18() {
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_23() {
+    if (jj_scan_token(CHR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_16() {
+    if (jj_3R_21()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_14() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(9)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(10)) return true;
+    }
+    xsp = jj_scanpos;
+    if (jj_3R_16()) {
+    jj_scanpos = xsp;
+    if (jj_3R_17()) {
+    jj_scanpos = xsp;
+    if (jj_3R_18()) {
+    jj_scanpos = xsp;
+    if (jj_3R_19()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_24() {
+    if (jj_scan_token(STR)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_19() {
+    if (jj_3R_24()) return true;
     return false;
   }
 
   private boolean jj_3_1() {
-    if (jj_3R_10()) return true;
+    if (jj_3R_14()) return true;
     return false;
   }
 
-  private boolean jj_3R_11() {
+  private boolean jj_3R_21() {
+    if (jj_scan_token(INT)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_17() {
+    if (jj_3R_22()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_scan_token(48)) {
@@ -863,35 +852,24 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
     if (jj_scan_token(IDENTIDICADOR)) return true;
     while (true) {
       xsp = jj_scanpos;
-      if (jj_3R_12()) { jj_scanpos = xsp; break; }
+      if (jj_3R_20()) { jj_scanpos = xsp; break; }
     }
     if (jj_scan_token(PUNTCOM)) return true;
     return false;
   }
 
-  private boolean jj_3R_10() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(9)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(10)) return true;
-    }
-    xsp = jj_scanpos;
-    if (jj_scan_token(48)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(49)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(50)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(51)) return true;
-    }
-    }
-    }
+  private boolean jj_3_2() {
+    if (jj_3R_15()) return true;
     return false;
   }
 
-  private boolean jj_3_2() {
-    if (jj_3R_11()) return true;
+  private boolean jj_3R_22() {
+    if (jj_scan_token(BOOL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_20() {
+    if (jj_scan_token(COMMA)) return true;
     return false;
   }
 
@@ -914,10 +892,10 @@ public class Sintaxis_RHS implements Sintaxis_RHSConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x2000,0x0,0xa00,0x600,0x0,0x0,0x0,0x0,0x18c8b00,0x18c8b00,0x0,0x0,0x30000,0x30000,0x0,0x0,0x30000,0x30000,0x0,0x0,0xc0,0x0,0xc0,0x0,0x0,0x0,0x0,0x0,0x100000,0x100,0xc,0xc,0x30,0x30,0x8000008,0x8000000,};
+      jj_la1_0 = new int[] {0x2000,0x600,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x18c8100,0x18c8100,0x30000,0x30000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x30000,0x30000,0x0,0xc0,0x0,0x100000,0x100,0xc,0xc,0x30,0x30,0x8000008,0x8000000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0xf0000,0xf0000,0x0,0xf0000,0x4,0xf0000,0x4,0xf0000,0xf0000,0x40c000,0x3fe0,0x0,0x0,0x40c000,0x3fe0,0x0,0x0,0x10000,0x3c0,0x0,0x400000,0x0,0x400000,0x40c000,0x3fe0,0x40c000,0x3fe0,0x0,0x0,0x0,0x0,0x0,0x0,0xa00000,0xa00000,};
+      jj_la1_1 = new int[] {0x0,0x0,0x1d0000,0x4,0x4,0x4,0xc000,0x4,0xc000,0xf0000,0x4,0xf0000,0xf0000,0x0,0x0,0xe00000,0x3fe0,0xe00000,0x3000,0x3000,0xe00000,0x3fe0,0xe00000,0x0,0x0,0x10000,0x0,0x400000,0x0,0x0,0x0,0x0,0x0,0x0,0xa00000,0xa00000,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[2];
   private boolean jj_rescan = false;

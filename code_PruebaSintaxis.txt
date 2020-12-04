@@ -1,28 +1,35 @@
 BEGIN Sintaxis{
 
 
-	public Int var1, var2;
-	Private str cadena1, cadena2;
-	public Chr letra1;
+	public Int var1=5, var2=6;
+	private Bool flag=false;
+	public Str cad="jotos";
+	private Chr letra='F';
 
 	StartMain(){
 	Dec nvaVariable;
 
-	_for(i=0;i<X;){i++;}
+	_for(i=0;i<X;i++){}
 
-	_if(X==true){
+	_if(X==4 && 5>10 || var1!=8.5){
+		_while(x==6){}
+		_do{
+	}
+	_while(x==7);
 		}
 
-	_ifElse(x==false){
+	_ifElse(X==4 && 5>10 || var1!=8.5){
+		_while(x==6){}
+		_do{
+	}
+	_while(x<7);
 		}
-	_else(){
+	_else{
+		_while(x!=4){}
+		_do{
 	}
-
-	_while(x==false){}
-
-	_do{
+	_while(x>8);
 	}
-	_while(x==false);
 
 	EvaluarExprecion[4*4-5+5/2];
 	EvaluarExprecion[-(1+1*6/3-5+1*-2)];
@@ -30,12 +37,11 @@ BEGIN Sintaxis{
 	_SW(opc){
 	case_SW x:
 	_do{
-	}_while(x==false);
+	}_while(x<8);
 	Case_break;
 	Defl:
-	_for(i=0;i<X;){i++;}
+	_for(i=0;i<X;i++){}
 	Case_break;
 	}
-	public void metodo(int b){}
 }
 }

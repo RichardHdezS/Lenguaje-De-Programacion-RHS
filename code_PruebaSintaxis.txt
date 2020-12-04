@@ -7,7 +7,7 @@ BEGIN Sintaxis{
 	private Chr letra='F';
 
 	StartMain(){
-	Dec nvaVariable;
+	Dec nvaVariable=10;
 
 	_for(i=0;i<X;i++){}
 

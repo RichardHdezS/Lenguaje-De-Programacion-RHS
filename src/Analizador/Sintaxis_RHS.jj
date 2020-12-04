@@ -119,13 +119,19 @@ void Bloque():
 void VariablesGlobales():
 {}
 {
-	(<PUBLICO>|<PRIVADO>) (DeclararInt()|DeclararBol()|DeclararChar()|DeclararStr()) Bloque()
+	(<PUBLICO>|<PRIVADO>) (DeclararInt()| DeclararDec()| DeclararBol()|DeclararChar()|DeclararStr()) Bloque()
 }
 
 void DeclararInt():
 {}
 	{
 		<INT><IDENTIDICADOR><ASIGNACION><NUMERO>(<COMMA><IDENTIDICADOR><ASIGNACION><NUMERO>)*<PUNTCOM>
+	}
+
+void DeclararDec():
+{}
+	{
+		<DEC><IDENTIDICADOR><ASIGNACION><NUMERO>(<COMMA><IDENTIDICADOR><ASIGNACION><NUMERO>)*<PUNTCOM>
 	}
 
 void DeclararStr():
@@ -155,7 +161,7 @@ void CuerpoPrincipal():
 void VariablesLocales():
 {}
 {
-	(<INT>|<DEC>|<CHR>|<STR>)<IDENTIDICADOR>(<COMMA><IDENTIDICADOR>)*<PUNTCOM> VS()
+	(DeclararInt()| DeclararDec()| DeclararBol()|DeclararChar()|DeclararStr()) VS()
 }
 
 void Sentencias():

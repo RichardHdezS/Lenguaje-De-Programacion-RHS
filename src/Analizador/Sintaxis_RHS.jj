@@ -113,7 +113,7 @@ void EjecutarLP():
 void Metodo():
 {}
 	{
-		<PUBLICO>|(<ESTATICO>)<VOID><IDENTIDICADOR><PARENI><PAREND><LLAVEI><LLAVED>
+		<PUBLICO>|(<ESTATICO>)<VOID><IDENTIDICADOR><PARENI><PAREND><LLAVEI>SentenciasM()<LLAVED>
 	}
 
 void Bloque():
@@ -182,6 +182,20 @@ void Sentencias():
 	| SentenciaSwitch()
 	| Evaluar()
 	| Metodo()
+	)*
+}
+
+void SentenciasM():
+{}
+{
+	(	
+	  VariablesLocales()
+    | SentenciaIf()
+	| SentenciaFor()
+	| SentenciaWhile()
+	| SentenciaDo()
+	| SentenciaSwitch()
+	| Evaluar()
 	)*
 }
 

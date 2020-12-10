@@ -43,5 +43,6 @@ BEGIN Sintaxis{
 	_for(i=0;i<X;i++){}
 	Case_break;
 	}
+	public static void metodo(){}
 }
 }

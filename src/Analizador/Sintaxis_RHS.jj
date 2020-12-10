@@ -110,6 +110,12 @@ void EjecutarLP():
 	
 }
 
+void Metodo():
+{}
+	{
+		<PUBLICO>|(<ESTATICO>)<VOID><IDENTIDICADOR><PARENI><PAREND><LLAVEI><LLAVED>
+	}
+
 void Bloque():
 {}
 {
@@ -175,6 +181,7 @@ void Sentencias():
 	| SentenciaDo()
 	| SentenciaSwitch()
 	| Evaluar()
+	| Metodo()
 	)*
 }
 

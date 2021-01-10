@@ -126,6 +126,14 @@ public interface Sintaxis_RHSConstants {
   int CARAC = 57;
   /** RegularExpression Id. */
   int DOUBLEPOINT = 58;
+  /** RegularExpression Id. */
+  int IMPDEC = 59;
+  /** RegularExpression Id. */
+  int IMPSTR = 60;
+  /** RegularExpression Id. */
+  int IMPCHR = 61;
+  /** RegularExpression Id. */
+  int IMPBOL = 62;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -191,6 +199,10 @@ public interface Sintaxis_RHSConstants {
     "<CADENA>",
     "<CARAC>",
     "\":\"",
+    "\"%d\"",
+    "\"%s\"",
+    "\"%c\"",
+    "\"%b\"",
     "\" \"",
     "\"\\n\"",
     "\"\\r\"",

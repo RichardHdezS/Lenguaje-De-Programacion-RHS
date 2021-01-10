@@ -1,0 +1,10 @@
+BEGIN Sintaxis{
+
+	
+	StartMain(){
+	
+	Str nvaVariable="Hola";
+
+}
+
+}

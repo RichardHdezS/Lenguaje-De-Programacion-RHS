@@ -33,6 +33,12 @@ public class AuxLexico {
                         ExpRegulares(Tokens.nextToken());
                         i++;
                     }
+                //verificamos que la tbala esta no esta vacia para eliminar su contenido
+                /*if(ta.getRowCount()!=0){
+                    //miModelo.setColumnCount(0);
+                    miModelo.setRowCount(0);
+                }*/
+                //y colocar contenido inicial o nuevo conrtenido
                 ta.setModel(miModelo);//al final del analisis de los tokens, establecemos las filas del modleo a la tabla de IDE
         }
     //*****************************************************************************************
@@ -266,5 +272,4 @@ public void ExpRegulares(String Token)
 		  
 	  }
 	
-    
 }

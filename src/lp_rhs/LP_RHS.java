@@ -37,12 +37,13 @@ import javax.swing.JTextPane;
 public class LP_RHS {
         
     
-    public void ejecutaLP(String rootFile, JTextPane tp){
+    public void ejecutaLP(String rootFile, JTextPane tp, String Entrada){
         //IDE msg = new IDE();
         try {
             Sintaxis_RHS parser = new Sintaxis_RHS(new BufferedReader(new FileReader(rootFile)));
             parser.EjecutarLP();
             tp.setText(tp.getText() + "\n" + "Analisis Exitoso");
+            new Compilador(Entrada, tp);//enviamos el texto de entrada a analizar
         } catch (ParseException e) {
             tp.setText(tp.getText() + "\n" + e.getMessage());
             System.err.println(e.getMessage());

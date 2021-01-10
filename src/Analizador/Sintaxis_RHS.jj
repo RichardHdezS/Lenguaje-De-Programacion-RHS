@@ -96,6 +96,15 @@ TOKEN:
 	| <DOUBLEPOINT : ":"> //54
 }
 
+TOKEN:
+{
+	<IMPDEC: "%d">
+	| <IMPSTR: "%s">
+	| <IMPCHR: "%c">
+	| <IMPBOL: "%b">
+}
+
+
 SKIP : 
 { 
 	" "|"\n" | "\r" | "\r\n" | "\t"
@@ -182,6 +191,7 @@ void Sentencias():
 	| SentenciaSwitch()
 	| Evaluar()
 	| Metodo()
+	| SentenciaImprime()
 	)*
 }
 
@@ -196,6 +206,7 @@ void SentenciasM():
 	| SentenciaDo()
 	| SentenciaSwitch()
 	| Evaluar()
+	| SentenciaImprime()
 	)*
 }
 
@@ -246,6 +257,36 @@ void SentenciaDo():
 {}
 {
 	<DO><LLAVEI>Sentencias()<LLAVED><WHILE><PARENI>ValidaBool()<PAREND><PUNTCOM>
+}
+
+void SentenciaImprime():
+{}
+{
+	<WRITE>( imprimeDec()| imprimeStr() | imprimeChr() | imprimeBool() )<PUNTCOM>
+}
+
+void imprimeDec():
+{}
+{
+	<IMPDEC><IDENTIDICADOR>
+}
+
+void imprimeStr():
+{}
+{
+	<IMPSTR><IDENTIDICADOR>
+}
+
+void imprimeChr():
+{}
+{
+	<IMPCHR><IDENTIDICADOR>
+}
+
+void imprimeBool():
+{}
+{
+	<IMPBOL><IDENTIDICADOR>
 }
 
 void SentenciaSwitch():

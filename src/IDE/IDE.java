@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 
 /**
@@ -30,7 +31,7 @@ import javax.swing.text.AttributeSet;
 public class IDE extends javax.swing.JFrame {
     public IDE() {
         initComponents();
-       
+       btnGuardar.setVisible(false);
     }
 
     String pahtFile="";//est avriable guarda la ruta del archivo a analizar
@@ -156,7 +157,7 @@ public class IDE extends javax.swing.JFrame {
 
         btn_GuardarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         btn_GuardarComo.setFont(new java.awt.Font("HP Simplified Light", 1, 14)); // NOI18N
-        btn_GuardarComo.setText("Guardar como");
+        btn_GuardarComo.setText("Guardar Archivo");
         btn_GuardarComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_GuardarComoActionPerformed(evt);
@@ -265,9 +266,10 @@ public class IDE extends javax.swing.JFrame {
             txtSalida.setText(txtSalida.getText() + "\n" + "No hay codigo por ejecutar");
         }
         else{
-         new LP_RHS().ejecutaLP(pahtFile, txtSalida);//ejecutamos en codigo con el nalaizador lexico javacc
+         new LP_RHS().ejecutaLP(pahtFile, txtSalida, Resultado);//ejecutamos en codigo con el nalaizador lexico javacc
          new AuxLexico().Analizar(Resultado, tokenTable);//llamamos el analizador lexico
                                            //mandamos la cadena a analizar y la tabla de tokens
+         
         }
     }//GEN-LAST:event_btn_ejecutarActionPerformed
 
@@ -298,6 +300,7 @@ public class IDE extends javax.swing.JFrame {
             try {
                String ruta = fileChooser.getSelectedFile().getAbsolutePath(); 
                pahtFile=ruta;//al abrir un arcvhivo guradamos su direccion para despues mandarsela al compilador de LP_RHS 
+               System.out.println("desde abrir archivo " + pahtFile);
                File f = new File(ruta);       
                entrada = new Scanner(f);
                entrada2=new Scanner(f);
@@ -343,7 +346,7 @@ public class IDE extends javax.swing.JFrame {
                    fichero = new FileWriter(pahtFile);
                    pw = new PrintWriter(fichero);
                    pw.write(txtAreaContenido.getText());
-
+                   
                } 
                    catch (Exception e) {
                    e.printStackTrace();
@@ -354,6 +357,7 @@ public class IDE extends javax.swing.JFrame {
                       CargarArchivo();//si hacemos modificaciones sobre el jTextPane y damos en guardar, cargamos el archivo nuevamente
                    // Nuevamente aprovechamos el finally para 
                    // asegurarnos que se cierra el fichero.
+                      System.out.println("Si lo llame");
                    if (null != fichero){
                       fichero.close();
                     }
@@ -388,6 +392,7 @@ public class IDE extends javax.swing.JFrame {
                     if(!(PATH.endsWith(".txt"))){
                         File temp = new File(PATH+".txt");
                         JFC.renameTo(temp);
+                         
                     }
                     
                     JOptionPane.showMessageDialog(null,"Guardado exitoso!", "Guardado exitoso!", JOptionPane.INFORMATION_MESSAGE);
@@ -403,34 +408,27 @@ public class IDE extends javax.swing.JFrame {
         }
         
         public void CargarArchivo(){
-            Scanner entrada=null, entrada2=null; 
-            String Cadena="", Contenido="";
+            Scanner entrada=null; 
+            String Cadena="";
             try{
                File f = new File(pahtFile);  //cuando valvamos a cargar el archivo, utilizamos la variable global que guarda la direccion dle archivo abierto     
+                System.out.println("desde cargar archivo " + pahtFile);
                entrada = new Scanner(f);
-               entrada2=new Scanner(f);
                while (entrada.hasNext()) {//preparamos la entradad ára el analizador lexico
                    Cadena += entrada.nextLine() + " ";
-               }
-               while(entrada2.hasNext()){//este segundo siclo es epara llenar el contenido que se presentara en la primera venta
-                   Contenido+=entrada2.nextLine() + "\n";
                }
            } 
            catch (FileNotFoundException e) {
                txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage());
                //System.out.println(e.getMessage());
            } 
-           catch (NullPointerException e) {
-               txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage() + "No se ha seleccionado ningún fichero");
-           } 
            catch (Exception e) {
                txtSalida.setText(txtSalida.getText() + "\n" + e.getMessage());
                //System.out.println(e.getMessage());
            } 
            finally {
-               if (entrada != null && entrada2!=null) {
+               if (entrada != null) {
                    entrada.close();
-                   entrada2.close();
                }
            }  
             Resultado=Cadena;

@@ -3,6 +3,9 @@
  */
 package lp_rhs;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import javax.swing.JTextPane;
 import jdk.nashorn.internal.objects.NativeString;
 
@@ -28,7 +31,6 @@ public class Compilador {
         }*/
         busquedaVariables(lineas);
         busquedaPrints(lineas);
-        
     }
 
     private void busquedaVariables(String[] lineas) {
@@ -172,9 +174,34 @@ public class Compilador {
                 }
                  if(bool==false){consola.setText(consola.getText() + "\n" + "ERROR: La variable '" +nombre + "' no fue declarada" + "\n"); break;}
             }
-        }
+        }genObjeCod();
     }
   
-    
+    public void genObjeCod(){
+        String [] ext = Entrada.split(" ");
+         String nameFile="obj_"+ext[1]+".ree";
+         System.out.println(nameFile);
+        try {
+           
+            String ruta = "E:\\NetBeansProjects\\Lenguaje-De-Programacion-RHS\\src\\lp_rhs\\"+nameFile;
+            String contenido = "initiali_Treeofvars_";
+           for(int d=0; d<variablesDec.length; d++){contenido=contenido+variablesDec[d]+"%d";}
+            for(int s=0; s<variablesDec.length; s++){contenido=contenido+variablesDec[s]+"%s";}
+            for(int c=0; c<variablesDec.length; c++){contenido=contenido+variablesDec[c]+"%c";}
+            for(int b=0; b<variablesDec.length; b++){contenido=contenido+variablesDec[b]+"%d";}
+            contenido=contenido+Entrada.replaceAll("(Dec|Str|Bool|Chr)|\\s|;", "");
+            File file = new File(ruta);
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(contenido);
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
 }
